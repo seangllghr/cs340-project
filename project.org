@@ -1,0 +1,52 @@
+* Project Structure:
+** controllers/
+   - handle requests and call services
+** db/
+   - data access layer
+** docs/
+   - software documentation in production, probably assignment deliverables
+** routes/
+   - API routes and endpoints for Express
+** services/
+   - business logic between direct data access and controller
+** tests/
+*** controllers/
+    - controller tests
+*** db/
+    - data access layer tests
+*** services/
+    - business logic tests
+** index.js
+   - application entry point
+** server.js
+    - server config and init
+* Tasks [9%]
+  :properties:
+  :cookie_data: recursive
+  :end:
+** DONE npm init
+   CLOSED: [2020-06-04 Thu 11:49]
+** DONE git init
+   CLOSED: [2020-06-04 Thu 11:51]
+   - [X] README
+   - [X] .gitignore
+** TODO Data Access [0/4]
+*** TODO Create
+*** TODO Read
+*** TODO Update
+*** TODO Delete
+** TODO Services [0/4]
+*** TODO Create
+*** TODO Read
+*** TODO Update
+*** TODO Delete
+** TODO Controllers [0/4]
+*** TODO Create
+*** TODO Read
+*** TODO Update
+*** TODO Delete
+** TODO API Routes [0/4]
+*** TODO Create
+*** TODO Read
+*** TODO Update
+*** TODO Delete
