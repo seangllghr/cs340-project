@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { initClient } = require('../../db/initClient')
+const { initClient } = require('../../db/dataAccess')
 const { testMessage } = require('../testMessage')
 
 async function testInitClient () {
