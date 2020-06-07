@@ -1,0 +1,11 @@
+{
+  "connectURI": {
+    "user": "node",
+    "pass": "DVFD30RJ6ieMh92r3Ff9RmnJ3LSSifmP4WbHy1zN",
+    "host": "localhost",
+    "port": 27017,
+    "auth": "admin"
+  },
+  "databaseName": "city",
+  "collectionName": "inspections"
+}

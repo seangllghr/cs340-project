@@ -2,9 +2,9 @@
   "name": "cs340-project",
   "version": "0.1.0",
   "description": "REST API implementation for SNHU CS-340",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard && for i in tests/**/*.test.js; do ./$i; done"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^3.5.8"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "printf": "^0.5.3"
   }
 }

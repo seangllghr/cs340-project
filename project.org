@@ -16,8 +16,6 @@
     - data access layer tests
 *** services/
     - business logic tests
-** [[file:index.js][index.js]]
-   - application entry point
 ** [[file:server.js][server.js]]
     - server config and init
 * Tasks [9%]
@@ -50,7 +48,7 @@
 *** TODO Read
 *** TODO Update
 *** TODO Delete
-** TODO Tests [0/5]
+** TODO Tests [0%]
   :properties:
   :cookie_data: recursive
   :end:
