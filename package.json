@@ -4,7 +4,7 @@
   "description": "REST API implementation for SNHU CS-340",
   "main": "server.js",
   "scripts": {
-    "test": "for i in tests/**/*.test.js; do ./$i; done"
+    "test": "standard && for i in tests/**/*.test.js; do ./$i; done"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
     "mongodb": "^3.5.8"
   },
   "devDependencies": {
+    "colors": "^1.4.0",
     "printf": "^0.5.3"
   }
 }
