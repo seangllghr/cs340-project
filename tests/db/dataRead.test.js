@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
 const assert = require('assert')
-const { initClient } = require('../../db/initClient')
-const { dataRead } = require('../../db/dataRead')
+const { initClient, dataRead } = require('../../db/dataAccess')
 const { testMessage } = require('../testMessage')
 
 async function testDataRead (testName, query, expectedResult) {
