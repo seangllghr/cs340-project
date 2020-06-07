@@ -4,7 +4,7 @@
   "description": "REST API implementation for SNHU CS-340",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "for i in tests/**/*.test.js; do ./$i; done"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^3.5.8"
+  },
+  "devDependencies": {
+    "printf": "^0.5.3"
   }
 }
