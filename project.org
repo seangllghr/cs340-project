@@ -18,7 +18,7 @@
     - business logic tests
 ** [[file:server.js][server.js]]
     - server config and init
-* Tasks [14%]
+* Tasks [21%]
   :properties:
   :cookie_data: recursive
   :end:
@@ -48,12 +48,15 @@
 *** TODO Read
 *** TODO Update
 *** TODO Delete
-** TODO Tests [0%]
+** TODO Tests [40%]
   :properties:
   :cookie_data: recursive
   :end:
 *** TODO Data Access
-**** TODO Create
-**** TODO Read
+:properties:
+:cookie_data: recursive
+:end:
+**** DONE Create
+**** DONE Read
 **** TODO Update
 **** TODO Delete
