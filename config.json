@@ -7,5 +7,6 @@
     "auth": "admin"
   },
   "databaseName": "city",
-  "collectionName": "inspections"
+  "collectionName": "inspections",
+  "defaultReadLimit": 20
 }
