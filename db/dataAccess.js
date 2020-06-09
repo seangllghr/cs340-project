@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const config = require('../config.json')
+const MongoClient = require('mongodb').MongoClient
 
 /**
  * Create one or more new records with the specified document(s)
@@ -39,7 +40,18 @@ async function dataCreate (document, opts) {
  * @returns {Object} - the delete op result object returned from MongoDB
  */
 async function dataDelete (query, opts) {
-  // TODO: Delete stuff
+  // set db and collection from opts if passed, else set from config
+  const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
+  const colName = (opts && opts.colName) ? opts.colName : config.collectionName
+
+  const client = initClient()
+  await client.connect()
+  const col = client.db(dbName).collection(colName)
+  const result = (dataRead(query).length > 1)
+    ? await col.deleteOne(query)
+    : await col.deleteMany(query)
+  await client.close()
+  return result
 }
 
 /**
@@ -72,7 +84,6 @@ async function dataRead (query, opts) {
  * @returns {MongoClient} - a MongoClient object initialized with the config
  */
 function initClient (conf = config) {
-  const MongoClient = require('mongodb').MongoClient
   const url = (
     'mongodb://' +
     `${conf.connectURI.user}:${conf.connectURI.pass}` + // Authentication creds
