@@ -28,9 +28,23 @@ async function dataCreate (document, opts) {
 }
 
 /**
+ * Delete records matching a specified query
+ *
+ * @param {Object} query - a MongoDB query document
+ * @param {Object} [opts] - optional settings
+ * @param {number} [opts.limit] - maximum number of matching results to delete
+ * @param {string} [opts.dbName] - the name of the target database
+ * @param {string} [opts.colName] - the name of the target collection
+ *
+ * @returns {Object} - the delete op result object returned from MongoDB
+ */
+async function dataDelete (query, opts) {
+  // TODO: Delete stuff
+}
+
+/**
  * Perform a read operation and return the results as an array
  *
- * @param {Object} client - an initialized MongoClient object
  * @param {Object} query - a MongoDB query document
  * @param {Object} [opts] - optional settings
  * @param {number} [opts.limit] - the number of results to return
@@ -74,5 +88,6 @@ function initClient (conf = config) {
 module.exports = {
   initClient: initClient,
   dataCreate: dataCreate,
+  dataDelete: dataDelete,
   dataRead: dataRead
 }
