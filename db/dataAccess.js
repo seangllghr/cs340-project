@@ -10,7 +10,7 @@ const config = require('../config.json')
  * @param {string} [opts.dbName] - the name of the target database
  * @param {string} [opts.colName] - the name of the target collection
  *
- * @returns {}
+ * @returns {Object} - the insert op result object returned from MongoDB
  */
 async function dataCreate (document, opts) {
   const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
@@ -32,7 +32,7 @@ async function dataCreate (document, opts) {
  *
  * @param {Object} client - an initialized MongoClient object
  * @param {Object} query - a MongoDB query document
- * @param {Object} opts - optional settings
+ * @param {Object} [opts] - optional settings
  * @param {number} [opts.limit] - the number of results to return
  * @param {string} [opts.dbName] - the name of the target database
  * @param {string} [opts.colName] - the name of the target collection
