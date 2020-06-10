@@ -57,6 +57,7 @@
 :cookie_data: recursive
 :end:
 **** DONE Create
-**** DONE Read
-**** TODO Update
+**** HOLD Read
+- redesign required: returning a length-limited array is sub-optimal
+**** DONE Update
 **** TODO Delete
