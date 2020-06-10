@@ -78,6 +78,19 @@ async function dataRead (query, opts) {
 }
 
 /**
+ * Perform an update operation on documents found within the database
+ *
+ * @param {Object} query - a MongoDB query document
+ * @param {Object} updates - a MongoDB update document
+ * @param {Object} [opts] - optional settings
+ * @param {string} [opts.dbName] - the name of the target database
+ * @param {string} [opts.colName] - the name of the target collection
+ */
+async function dataUpdate (query, updates, opts) {
+  // TODO: Update stuff
+}
+
+/**
  * Initialize the MongoClient
  *
  * @param {Object} [conf] - a Config object with connection URI component info
@@ -97,8 +110,9 @@ function initClient (conf = config) {
 }
 
 module.exports = {
-  initClient: initClient,
   dataCreate: dataCreate,
   dataDelete: dataDelete,
-  dataRead: dataRead
+  dataRead: dataRead,
+  dataUpdate: dataUpdate,
+  initClient: initClient
 }
