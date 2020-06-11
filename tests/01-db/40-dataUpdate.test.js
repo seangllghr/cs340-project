@@ -11,7 +11,26 @@ async function testDataUpdate (testName, query, updates, opts) {
 (async () => {
   await testDataUpdate(
     'Update one record',
-    { test: 'This is a test' },
-    { $set: { date: new Date() } }
+    { test: 'This is only a test.' },
+    {
+      dbName: 'test',
+      colName: 'test'
+    }
+  )
+  await testDataUpdate(
+    'Update many records',
+    { test: 'This is one of 4 documents' },
+    {
+      dbName: 'test',
+      colName: 'test'
+    }
+  )
+  await testDataUpdate(
+    'Update against query with no results',
+    { test: 'No documents match the test' },
+    {
+      dbName: 'test',
+      colName: 'test'
+    }
   )
 })()
