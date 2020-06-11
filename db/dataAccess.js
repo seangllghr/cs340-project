@@ -4,6 +4,29 @@ const config = require('../config.json')
 const MongoClient = require('mongodb').MongoClient
 
 /**
+ * Count the number of documents matching the query
+ *
+ * @param {Object} query - a MongoDB query document
+ * @param {Object} [opts] - optional settings
+ * @param {string} [opts.dbName] - the name of the target database
+ * @param {string} [opts.colName] - the name of the target collection
+ *
+ * @returns {number} - the number of matching docs
+ */
+async function countMatching (query, opts) {
+  const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
+  const colName = (opts && opts.colName) ? opts.colName : config.collectionName
+
+  const client = initClient()
+  await client.connect()
+  const col = client.db(dbName).collection(colName)
+
+  const numResults = await col.countDocuments(query)
+  client.close()
+  return numResults
+}
+
+/**
  * Create one or more new records with the specified document(s)
  *
  * @param {(Object|Object[])} document - the document to insert into the db
@@ -78,6 +101,34 @@ async function dataRead (query, opts) {
 }
 
 /**
+ * Perform an update operation on documents found within the database
+ *
+ * @param {Object} query - a MongoDB query document
+ * @param {Object} updates - a MongoDB update document
+ * @param {Object} [opts] - optional settings
+ * @param {string} [opts.dbName] - the name of the target database
+ * @param {string} [opts.colName] - the name of the target collection
+ */
+async function dataUpdate (query, updates, opts) {
+  // TODO: Update stuff
+  const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
+  const colName = (opts && opts.colName) ? opts.colName : config.collectionName
+
+  const client = initClient()
+  await client.connect()
+  const col = client.db(dbName).collection(colName)
+
+  const numMatches = await countMatching(query, opts)
+
+  if (numMatches > 1) {
+    await col.updateMany(query, updates)
+  } else {
+    await col.updateOne(query, updates)
+  }
+  await client.close()
+}
+
+/**
  * Initialize the MongoClient
  *
  * @param {Object} [conf] - a Config object with connection URI component info
@@ -97,8 +148,10 @@ function initClient (conf = config) {
 }
 
 module.exports = {
-  initClient: initClient,
+  countMatching: countMatching,
   dataCreate: dataCreate,
   dataDelete: dataDelete,
-  dataRead: dataRead
+  dataRead: dataRead,
+  dataUpdate: dataUpdate,
+  initClient: initClient
 }
