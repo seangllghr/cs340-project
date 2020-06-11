@@ -111,6 +111,21 @@ async function dataRead (query, opts) {
  */
 async function dataUpdate (query, updates, opts) {
   // TODO: Update stuff
+  const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
+  const colName = (opts && opts.colName) ? opts.colName : config.collectionName
+
+  const client = initClient()
+  await client.connect()
+  const col = client.db(dbName).collection(colName)
+
+  const numMatches = await countMatching(query, opts)
+
+  if (numMatches > 1) {
+    await col.updateMany(query, updates)
+  } else {
+    await col.updateOne(query, updates)
+  }
+  await client.close()
 }
 
 /**
