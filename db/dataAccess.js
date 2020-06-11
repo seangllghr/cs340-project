@@ -4,6 +4,29 @@ const config = require('../config.json')
 const MongoClient = require('mongodb').MongoClient
 
 /**
+ * Count the number of documents matching the query
+ *
+ * @param {Object} query - a MongoDB query document
+ * @param {Object} [opts] - optional settings
+ * @param {string} [opts.dbName] - the name of the target database
+ * @param {string} [opts.colName] - the name of the target collection
+ *
+ * @returns {number} - the number of matching docs
+ */
+async function countMatching (query, opts) {
+  const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
+  const colName = (opts && opts.colName) ? opts.colName : config.collectionName
+
+  const client = initClient()
+  await client.connect()
+  const col = client.db(dbName).collection(colName)
+
+  const numResults = await col.countDocuments(query)
+  client.close()
+  return numResults
+}
+
+/**
  * Create one or more new records with the specified document(s)
  *
  * @param {(Object|Object[])} document - the document to insert into the db
@@ -110,6 +133,7 @@ function initClient (conf = config) {
 }
 
 module.exports = {
+  countMatching: countMatching,
   dataCreate: dataCreate,
   dataDelete: dataDelete,
   dataRead: dataRead,
