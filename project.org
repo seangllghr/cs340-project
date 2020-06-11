@@ -18,7 +18,7 @@
     - business logic tests
 ** [[file:server.js][server.js]]
     - server config and init
-* Tasks [21%]
+* Tasks [35%]
   :properties:
   :cookie_data: recursive
   :end:
@@ -28,11 +28,11 @@
    CLOSED: [2020-06-04 Thu 11:51]
    - [X] README
    - [X] .gitignore
-** TODO Data Access [2/4]
+** TODO Data Access [4/4]
 *** DONE Create
 *** DONE Read
-*** TODO Update
-*** TODO Delete
+*** DONE Update
+*** DONE Delete
 ** TODO Services [0/4]
 *** TODO Create
 *** TODO Read
@@ -48,7 +48,7 @@
 *** TODO Read
 *** TODO Update
 *** TODO Delete
-** TODO Tests [40%]
+** TODO Tests [80%]
   :properties:
   :cookie_data: recursive
   :end:
@@ -57,7 +57,6 @@
 :cookie_data: recursive
 :end:
 **** DONE Create
-**** HOLD Read
-- redesign required: returning a length-limited array is sub-optimal
-**** STRT Update
+**** DONE Read
+**** DONE Update
 **** DONE Delete
