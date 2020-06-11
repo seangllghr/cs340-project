@@ -4,8 +4,27 @@ const assert = require('assert')
 const da = require('../../db/dataAccess')
 const { testMessage } = require('../testMessage')
 
-async function testDataUpdate (testName, query, updates, opts) {
-  // TODO: Test stuff
+async function testDataUpdate (testName, query, opts) {
+  const updates = { $set: { date: new Date() } }
+  try {
+    const initialResults = await da.dataRead(query, opts)
+    if (initialResults.length > 0) {
+      for (const result of initialResults) {
+        assert.strictEqual(query.test, result.test)
+      }
+    }
+    await da.dataUpdate(query, updates, opts)
+    const finalResults = await da.dataRead(query, opts)
+    if (finalResults.length > 0) {
+      for (const result of finalResults) {
+        assert.ok(result.date)
+      }
+    }
+    testMessage(testName, true)
+  } catch (err) {
+    testMessage(testName, false)
+    console.log(err)
+  }
 }
 
 (async () => {
