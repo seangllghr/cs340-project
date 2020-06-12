@@ -13,9 +13,11 @@ const MongoClient = require('mongodb').MongoClient
  *
  * @returns {number} - the number of matching docs
  */
-async function countMatching (query, opts) {
-  const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
-  const colName = (opts && opts.colName) ? opts.colName : config.collectionName
+async function countMatching (query, opts = config) {
+  const {
+    dbName = config.dbName,
+    colName = config.colName
+  } = opts
 
   const client = initClient()
   await client.connect()
@@ -36,9 +38,11 @@ async function countMatching (query, opts) {
  *
  * @returns {Object} - the insert op result object returned from MongoDB
  */
-async function dataCreate (document, opts) {
-  const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
-  const colName = (opts && opts.colName) ? opts.colName : config.collectionName
+async function dataCreate (document, opts = config) {
+  const {
+    dbName = config.dbName,
+    colName = config.colName
+  } = opts
 
   const client = initClient()
   await client.connect()
@@ -62,10 +66,11 @@ async function dataCreate (document, opts) {
  *
  * @returns {Object} - the delete op result object returned from MongoDB
  */
-async function dataDelete (query, opts) {
-  // set db and collection from opts if passed, else set from config
-  const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
-  const colName = (opts && opts.colName) ? opts.colName : config.collectionName
+async function dataDelete (query, opts = config) {
+  const {
+    dbName = config.dbName,
+    colName = config.colName
+  } = opts
 
   const client = initClient()
   await client.connect()
@@ -88,10 +93,13 @@ async function dataDelete (query, opts) {
  *
  * @returns {Object[]} - an array of matching documents from the collection
  */
-async function dataRead (query, opts) {
-  const limit = (opts && opts.limit) ? opts.limit : config.defaultReadLimit
-  const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
-  const colName = (opts && opts.colName) ? opts.colName : config.collectionName
+async function dataRead (query, opts = config) {
+  const {
+    limit = config.limit,
+    dbName = config.dbName,
+    colName = config.colName
+  } = opts
+
   const client = initClient()
   await client.connect()
   const col = client.db(dbName).collection(colName)
@@ -109,10 +117,11 @@ async function dataRead (query, opts) {
  * @param {string} [opts.dbName] - the name of the target database
  * @param {string} [opts.colName] - the name of the target collection
  */
-async function dataUpdate (query, updates, opts) {
-  // TODO: Update stuff
-  const dbName = (opts && opts.dbName) ? opts.dbName : config.databaseName
-  const colName = (opts && opts.colName) ? opts.colName : config.collectionName
+async function dataUpdate (query, updates, opts = config) {
+  const {
+    dbName = config.dbName,
+    colName = config.colName
+  } = opts
 
   const client = initClient()
   await client.connect()

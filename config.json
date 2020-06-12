@@ -6,7 +6,7 @@
     "port": 27017,
     "auth": "admin"
   },
-  "databaseName": "city",
-  "collectionName": "inspections",
-  "defaultReadLimit": 20
+  "dbName": "city",
+  "colName": "inspections",
+  "limit": 20
 }
