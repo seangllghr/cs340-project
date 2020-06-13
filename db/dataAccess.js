@@ -51,8 +51,9 @@ async function dataCreate (document, opts = config) {
     ? await col.insertMany(document)
     : await col.insertOne(document)
   await client.close()
+  const resultOk = result.result.ok === 1
 
-  return result
+  return resultOk
 }
 
 /**
@@ -129,12 +130,12 @@ async function dataUpdate (query, updates, opts = config) {
 
   const numMatches = await countMatching(query, opts)
 
-  if (numMatches > 1) {
-    await col.updateMany(query, updates)
-  } else {
-    await col.updateOne(query, updates)
-  }
+  const result = (numMatches > 1)
+    ? await col.updateMany(query, updates)
+    : await col.updateOne(query, updates)
+
   await client.close()
+  return result
 }
 
 /**
