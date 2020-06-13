@@ -4,7 +4,7 @@
 ** db/
    - data access layer
 ** docs/
-   - software documentation in production, probably assignment deliverables
+   - for the purposes of my course, assignment deliverables
 ** routes/
    - API routes and endpoints for Express
 ** services/
