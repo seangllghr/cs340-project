@@ -1,0 +1,2 @@
+document=main.tex
+buildtype="math-latex"
