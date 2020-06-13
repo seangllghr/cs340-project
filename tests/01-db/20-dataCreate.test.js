@@ -9,7 +9,8 @@ async function testDataCreate (testName, document, opts) {
     const queryDocument = Array.isArray(document)
       ? { test: document[0].test }
       : { test: document.test }
-    await da.dataCreate(document, opts)
+    const insertOk = await da.dataCreate(document, opts)
+    assert.ok(insertOk)
     const results = await da.dataRead(queryDocument, opts)
     for (const result of results) {
       assert.strictEqual(queryDocument.test, result.test)
@@ -22,7 +23,7 @@ async function testDataCreate (testName, document, opts) {
 }
 
 (async () => {
-  await testDataCreate(
+  testDataCreate(
     'Insert one document',
     { test: 'This is only a test.' },
     {
@@ -30,7 +31,7 @@ async function testDataCreate (testName, document, opts) {
       colName: 'test'
     }
   )
-  await testDataCreate(
+  testDataCreate(
     'Insert many documents',
     [
       { test: 'This is one of 4 documents' },
