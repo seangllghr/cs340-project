@@ -107,3 +107,4 @@ dist
 docs/**/build
 docs/**/tex2pdf*
 docs/**/.auctex-auto
+docs/**/Sean_Gallagher*
