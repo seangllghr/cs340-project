@@ -1,0 +1,77 @@
+---
+author: Sean Gallagher
+title: "Milestone One: Data Access Layer"
+short-title: "Data Access Layer"
+running-head: "DATA ACCESS LAYER"
+course: "CS-340: Client/Server Development"
+university: Southern New Hampshire University
+header-block: true
+title-page: false
+bibliography: refs.bib
+listings: true
+---
+
+The specification for this first milestone called for an implementation of the
+data access layer for a RESTful application, implementing the four basic CRUD
+operations associated with database access. Implementation is in Javascript, to
+better leverage the familiarity of front-end and full-stack developers with the
+language, and is written to take advantage of the MongoDB Native Javascript
+driver's asynchronous nature. For simplicity---and because this is a relatively
+constrained use case---the entire data access layer is implemented in a single
+Javascript source file, `dataAccess.js`. This file is included with the
+submission, and is listed in its entirety in this document. In the interest of
+keeping this submission as concise as possible, only `dataAccess.js` is included
+in the submission; unit tests, as well as the `mile1.js` test script that
+produced the output in Figures \ref{fig:exec1}--\ref{fig:exec6}, are available
+from the project's [Github
+repository](https://github.com/seangllghr/cs340-project).
+
+\lstinputlisting[style=ES6]{../../db/dataAccess.js}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\textwidth]{./build/img/mile1-01.png}
+  \caption{Output from test script showing successful execution of Create, Read,
+    Update, and Delete operations using functions from \texttt{dataAccess.js} (1
+    of 6)}
+  \label{fig:exec1}
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\textwidth]{./build/img/mile1-02.png}
+  \caption{Output from test script showing successful execution of Create, Read,
+    Update, and Delete operations using functions from \texttt{dataAccess.js} (2
+    of 6)}
+  \label{fig:exec2}
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\textwidth]{./build/img/mile1-03.png}
+  \caption{Output from test script showing successful execution of Create, Read,
+    Update, and Delete operations using functions from \texttt{dataAccess.js} (3
+    of 6)}
+  \label{fig:exec3}
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\textwidth]{./build/img/mile1-04.png}
+  \caption{Output from test script showing successful execution of Create, Read,
+    Update, and Delete operations using functions from \texttt{dataAccess.js} (4
+    of 6)}
+  \label{fig:exec4}
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\textwidth]{./build/img/mile1-05.png}
+  \caption{Output from test script showing successful execution of Create, Read,
+    Update, and Delete operations using functions from \texttt{dataAccess.js} (5
+    of 6)}
+  \label{fig:exec5}
+\end{figure}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\textwidth]{./build/img/mile1-06.png}
+  \caption{Output from test script showing successful execution of Create, Read,
+    Update, and Delete operations using functions from \texttt{dataAccess.js} (6
+    of 6)}
+  \label{fig:exec6}
+\end{figure}

@@ -102,3 +102,9 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Paper editor and build artifacts
+docs/**/build
+docs/**/tex2pdf*
+docs/**/.auctex-auto
+docs/**/Sean_Gallagher*
