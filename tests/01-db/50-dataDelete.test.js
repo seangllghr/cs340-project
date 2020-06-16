@@ -6,13 +6,9 @@ const { testMessage } = require('../testMessage')
 
 async function testDataDelete (testName, query, opts) {
   try {
-    const initialSearchResult = await db.dataRead(query, opts)
-    if (initialSearchResult.length > 0) {
-      assert.strictEqual(query.test, initialSearchResult[0].test)
-      await db.dataDelete(query, opts)
-      const finalSearchResult = await db.dataRead(query, opts)
-      assert.strictEqual(0, finalSearchResult.length)
-    }
+    await db.dataDelete(query, opts)
+    const finalSearchResult = await db.dataRead(query, opts)
+    assert.strictEqual(0, finalSearchResult.length)
     testMessage(testName, true)
   } catch (err) {
     testMessage(testName, false)
