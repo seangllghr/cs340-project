@@ -2,20 +2,27 @@
 
 const assert = require('assert')
 const services = require('../../../services')
-const { dataRead } = require('../../../db')
+const { countMatching } = require('../../../db')
 const { testMessage } = require('../../testMessage')
 const createDoc = require('../create.json')
 
-async function testCreateService (testName, document) {
+;(async (testName) => {
+  const query = { id: `${createDoc.id}` }
+  const matchesBefore = await countMatching(query)
   try {
-    assert.strictEqual(1, 1)
-    console.log(services.createService)
-    console.log(dataRead)
-    console.log(createDoc)
+    await services.createService(createDoc)
+    const matchesAfter = await countMatching(query)
+    assert.strictEqual(matchesAfter, (matchesBefore + 1))
     testMessage(testName, true)
   } catch (err) {
+    if (err.constructor === assert.AssertionError) {
+      console.log(
+        `Expected ${err.expected}` +
+        ` ${err.expected === 1 ? 'match' : 'matches'},` +
+        ` got ${err.actual}`)
+    } else {
+      console.log(err)
+    }
     testMessage(testName, false)
   }
-}
-
-testCreateService('This is a test', { a: 'b' })
+})('createService: Document successfully inserted in database')
