@@ -24,7 +24,8 @@ async function createService (doc) {
  */
 async function readService (query) {
   // TODO: Read service logic
-  console.log(query)
+  const result = await db.dataRead(query)
+  return result
 }
 
 /**
