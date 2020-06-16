@@ -4,11 +4,16 @@ const assert = require('assert')
 const db = require('../../db')
 const { testMessage } = require('../testMessage')
 
-async function testDataRead (testName, query, expectedResult) {
+async function testDataRead (testName, query, expectedResults) {
   try {
-    const result = await db.dataRead(query)
-    assert.strictEqual(expectedResult.length, result.length)
-    assert.deepStrictEqual(expectedResult[0].address, result[0].address)
+    const actualResults = await db.dataRead(query)
+    assert.strictEqual(expectedResults.length, actualResults.length)
+    actualResults.forEach((result, i) => {
+      assert.deepStrictEqual(
+        expectedResults[i].address,
+        actualResults[i].address
+      )
+    })
     testMessage(testName, true)
   } catch (err) {
     testMessage(testName, false)

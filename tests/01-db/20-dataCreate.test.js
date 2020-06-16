@@ -12,9 +12,14 @@ async function testDataCreate (testName, document, opts) {
     const insertOk = await db.dataCreate(document, opts)
     assert.ok(insertOk)
     const results = await db.dataRead(queryDocument, opts)
-    for (const result of results) {
-      assert.strictEqual(queryDocument.test, result.test)
+    if (Array.isArray(document)) {
+      assert.strictEqual(document.length, results.length)
+    } else {
+      assert.strictEqual(1, results.length)
     }
+    results.forEach((result) => {
+      assert.strictEqual(queryDocument.test, result.test)
+    })
     testMessage(testName, true)
   } catch (err) {
     testMessage(testName, false)
