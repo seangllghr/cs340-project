@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
 const assert = require('assert')
-const da = require('../../db/dataAccess')
+const db = require('../../db')
 const { testMessage } = require('../testMessage')
 
 async function testDataRead (testName, query, expectedResult) {
   try {
-    const result = await da.dataRead(query)
+    const result = await db.dataRead(query)
     assert.strictEqual(expectedResult.length, result.length)
     assert.deepStrictEqual(expectedResult[0].address, result[0].address)
     testMessage(testName, true)
