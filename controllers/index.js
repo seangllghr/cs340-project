@@ -14,7 +14,14 @@ async function createController (req, res, next) {
 }
 
 async function readController (req, res, next) {
-  // TODO: Read logic
+  const query = req.query
+  try {
+    services.readService(query)
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
 }
 
 async function updateController (req, res, next) {
