@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 const assert = require('assert')
-const services = require('../../../services')
-const { countMatching } = require('../../../db')
-const { testMessage } = require('../../testMessage')
-const createDoc = require('../create.json')
+const services = require('../../services')
+const { countMatching } = require('../../db')
+const { testMessage } = require('../testMessage')
+const createDoc = require('./create.json')
 
 ;(async (testName) => {
   const query = { id: `${createDoc.id}` }
@@ -25,4 +25,4 @@ const createDoc = require('../create.json')
     }
     testMessage(testName, false)
   }
-})('createService: Document successfully inserted in database')
+})('createService: Document successfully inserted')
