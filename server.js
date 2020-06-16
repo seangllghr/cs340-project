@@ -1,10 +1,18 @@
 #!/usr/bin/env node
 
 const express = require('express')
-const app = express()
+const router = require('./routes/router')
+const basicApp = require('./routes/basicApp')
+
+const server = express()
 const port = 3000
 const serverUrl = `http://localhost:${port}`
 
-app.get('/', (req, res) => res.send('Hello, World!'))
+server.use(express.json())
+server.use('/api', router)
+server.use('/basic', basicApp)
 
-app.listen(port, () => console.log(`Hello World listening on ${serverUrl}`))
+server.listen(port, () => {
+  console.log(`Server is listening on ${serverUrl}`)
+  console.log('Press Ctrl+C to close')
+})
