@@ -3,7 +3,14 @@
 const services = require('../services')
 
 async function createController (req, res, next) {
-  // TODO: Create logic
+  const doc = req.body
+  try {
+    await services.createService(doc)
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
 }
 
 async function readController (req, res, next) {
