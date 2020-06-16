@@ -25,7 +25,18 @@ async function readController (req, res, next) {
 }
 
 async function updateController (req, res, next) {
-  // TODO: Update logic
+  if (Object.entries(req.query).length === 2) {
+    const [query, newValue] = Object.entries(req.query)
+    try {
+      services.UpdateService(query, newValue)
+      res.sendStatus(200)
+    } catch (err) {
+      console.log(err)
+      res.sendStatus(500)
+    }
+  } else {
+    res.sendStatus(400)
+  }
 }
 
 async function deleteController (req, res, next) {
