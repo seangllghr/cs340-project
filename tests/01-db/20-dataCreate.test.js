@@ -17,9 +17,9 @@ async function testDataCreate (testName, document, opts) {
     } else {
       assert.strictEqual(1, results.length)
     }
-    for (const result of results) {
+    results.forEach((result) => {
       assert.strictEqual(queryDocument.test, result.test)
-    }
+    })
     testMessage(testName, true)
   } catch (err) {
     testMessage(testName, false)

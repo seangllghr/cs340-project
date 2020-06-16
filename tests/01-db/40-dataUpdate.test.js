@@ -10,7 +10,7 @@ async function testDataUpdate (testName, query, opts) {
     await db.dataUpdate(query, updates, opts)
     const results = await db.dataRead(query, opts)
     if (results.length > 0) {
-      results.forEach((result, i) => {
+      results.forEach((result) => {
         assert.strictEqual(query.test, result.test)
         assert.ok(result.date)
       })
