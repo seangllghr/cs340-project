@@ -18,7 +18,7 @@
     - business logic tests
 ** [[file:server.js][server.js]]
     - server config and init
-* Tasks [71%]
+* Tasks [57%]
   :properties:
   :cookie_data: recursive
   :end:
@@ -60,15 +60,19 @@
 *** DONE Return JSON from http POST
 - Input: { string1: "<string1>", string2: "<string2>" }
 - Output: { first: "<string1", second: "<string2>" }
-** TODO Tests [80%]
-  :properties:
-  :cookie_data: recursive
-  :end:
-*** TODO Data Access
-:properties:
-:cookie_data: recursive
-:end:
-**** DONE Create
-**** DONE Read
-**** DONE Update
-**** DONE Delete
+** TODO Tests [33%]
+*** DONE Data Access [4/4]
+**** DONE dataCreate
+**** DONE dataRead
+**** DONE dataUpdate
+**** DONE dataDelete
+*** TODO Controllers [0/4]
+**** TODO createController
+**** TODO readController
+**** TODO updateController
+**** TODO deleteController
+*** TODO Services [0/4]
+**** TODO createService
+**** TODO readService
+**** TODO updateService
+**** TODO deleteService
