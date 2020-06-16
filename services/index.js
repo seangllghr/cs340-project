@@ -11,7 +11,7 @@ const db = require('../db/')
  */
 async function createService (doc) {
   // TODO: Create service logic
-  console.log(doc)
+  await db.dataCreate(doc)
 }
 
 /**
