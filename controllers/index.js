@@ -40,7 +40,15 @@ async function updateController (req, res, next) {
 }
 
 async function deleteController (req, res, next) {
-  // TODO: Delete logic
+  const query = req.query
+  console.log(query)
+  try {
+    services.deleteService(query)
+    res.sendStatus(200)
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
 }
 
 module.exports = {
