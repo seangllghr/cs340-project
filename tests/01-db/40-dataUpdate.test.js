@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 
 const assert = require('assert')
-const da = require('../../db/dataAccess')
+const db = require('../../db')
 const { testMessage } = require('../testMessage')
 
 async function testDataUpdate (testName, query, opts) {
   const updates = { $set: { date: new Date() } }
   try {
-    const initialResults = await da.dataRead(query, opts)
+    const initialResults = await db.dataRead(query, opts)
     if (initialResults.length > 0) {
       for (const result of initialResults) {
         assert.strictEqual(query.test, result.test)
       }
     }
-    await da.dataUpdate(query, updates, opts)
-    const finalResults = await da.dataRead(query, opts)
+    await db.dataUpdate(query, updates, opts)
+    const finalResults = await db.dataRead(query, opts)
     if (finalResults.length > 0) {
       for (const result of finalResults) {
         assert.ok(result.date)

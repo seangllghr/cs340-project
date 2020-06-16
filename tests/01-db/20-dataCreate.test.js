@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const assert = require('assert')
-const da = require('../../db/dataAccess')
+const db = require('../../db')
 const { testMessage } = require('../testMessage')
 
 async function testDataCreate (testName, document, opts) {
@@ -9,9 +9,9 @@ async function testDataCreate (testName, document, opts) {
     const queryDocument = Array.isArray(document)
       ? { test: document[0].test }
       : { test: document.test }
-    const insertOk = await da.dataCreate(document, opts)
+    const insertOk = await db.dataCreate(document, opts)
     assert.ok(insertOk)
-    const results = await da.dataRead(queryDocument, opts)
+    const results = await db.dataRead(queryDocument, opts)
     for (const result of results) {
       assert.strictEqual(queryDocument.test, result.test)
     }

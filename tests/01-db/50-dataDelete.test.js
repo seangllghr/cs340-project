@@ -1,16 +1,16 @@
 #!/usr/bin/env node
 
 const assert = require('assert').strict
-const da = require('../../db/dataAccess')
+const db = require('../../db')
 const { testMessage } = require('../testMessage')
 
 async function testDataDelete (testName, query, opts) {
   try {
-    const initialSearchResult = await da.dataRead(query, opts)
+    const initialSearchResult = await db.dataRead(query, opts)
     if (initialSearchResult.length > 0) {
       assert.strictEqual(query.test, initialSearchResult[0].test)
-      await da.dataDelete(query, opts)
-      const finalSearchResult = await da.dataRead(query, opts)
+      await db.dataDelete(query, opts)
+      const finalSearchResult = await db.dataRead(query, opts)
       assert.strictEqual(0, finalSearchResult.length)
     }
     testMessage(testName, true)
