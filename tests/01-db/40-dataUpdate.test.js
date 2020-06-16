@@ -7,18 +7,13 @@ const { testMessage } = require('../testMessage')
 async function testDataUpdate (testName, query, opts) {
   const updates = { $set: { date: new Date() } }
   try {
-    const initialResults = await db.dataRead(query, opts)
-    if (initialResults.length > 0) {
-      for (const result of initialResults) {
-        assert.strictEqual(query.test, result.test)
-      }
-    }
     await db.dataUpdate(query, updates, opts)
-    const finalResults = await db.dataRead(query, opts)
-    if (finalResults.length > 0) {
-      for (const result of finalResults) {
+    const results = await db.dataRead(query, opts)
+    if (results.length > 0) {
+      results.forEach((result, i) => {
+        assert.strictEqual(query.test, result.test)
         assert.ok(result.date)
-      }
+      })
     }
     testMessage(testName, true)
   } catch (err) {
