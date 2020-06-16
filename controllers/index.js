@@ -16,7 +16,7 @@ async function createController (req, res, next) {
 async function readController (req, res, next) {
   const query = req.query
   try {
-    services.readService(query)
+    await services.readService(query)
     res.sendStatus(200)
   } catch (err) {
     console.log(err)
@@ -28,7 +28,7 @@ async function updateController (req, res, next) {
   if (Object.entries(req.query).length === 2) {
     const [query, newValue] = Object.entries(req.query)
     try {
-      services.UpdateService(query, newValue)
+      await services.UpdateService(query, newValue)
       res.sendStatus(200)
     } catch (err) {
       console.log(err)
@@ -43,7 +43,7 @@ async function deleteController (req, res, next) {
   const query = req.query
   console.log(query)
   try {
-    services.deleteService(query)
+    await services.deleteService(query)
     res.sendStatus(200)
   } catch (err) {
     console.log(err)
