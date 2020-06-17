@@ -16,8 +16,8 @@ const { id: targetId } = require('./create.json')
     testMessage(testName, true)
   } catch (err) {
     const { expected, actual } = err
+    testMessage(testName, false)
     if (err.constructor === assert.AssertionError) {
-      testMessage(testName, false)
       console.log(`Expected: ${expected} Actual: ${actual}`)
     } else {
       console.log(err)
