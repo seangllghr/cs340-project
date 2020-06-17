@@ -17,9 +17,11 @@ const { id: targetId } = require('./create.json')
     if (err.constructor === assert.AssertionError) {
       console.log(`Expected: ${expected} Actual: ${actual}`)
       testMessage(testName, false)
+    } else {
+      console.log(err)
     }
   }
 })(
-  'readService: Something something something dark side',
+  'readService: Length of result matches expected',
   { id: `${targetId}` }
 )
