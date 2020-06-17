@@ -33,13 +33,11 @@ async function readService (query) {
  * in the project's config.json.
  *
  * @param {Object} query - the MongoDB query matching documents to update
- * @param {Object} newValue - MongoDB document specifying the update to perform
+ * @param {Object} update - MongoDB document specifying the update to perform
  * @returns {bool} - true if update was successful, else returns an error.
  */
-async function updateService (query, newValue) {
-  // TODO: Update service logic
-  console.log(query)
-  console.log(newValue)
+async function updateService (query, update) {
+  await db.dataUpdate(query, update)
 }
 
 /**
