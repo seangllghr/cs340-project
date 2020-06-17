@@ -18,7 +18,7 @@
     - business logic tests
 ** [[file:server.js][server.js]]
     - server config and init
-* Tasks [59%]
+* Tasks [64%]
   :properties:
   :cookie_data: recursive
   :end:
@@ -28,21 +28,21 @@
    CLOSED: [2020-06-04 Thu 11:51]
    - [X] README
    - [X] .gitignore
-** TODO Data Access [4/4]
+** DONE Data Access [4/4]
 *** DONE Create
 *** DONE Read
 *** DONE Update
 *** DONE Delete
-** TODO Services [0/4]
-*** TODO Create
-*** TODO Read
-*** TODO Update
+** TODO Services [3/4]
+*** DONE Create
+*** DONE Read
+*** DONE Update
 *** TODO Delete
-** DONE Controllers [4/4]
-*** DONE Create
-*** DONE Read
-*** DONE Update
-*** DONE Delete
+** TODO Controllers [0/4]
+*** STRT Create
+*** STRT Read
+*** STRT Update
+*** STRT Delete
 ** DONE API Routes [4/4]
 *** DONE Create
 - HTTP POST with JSON document
@@ -60,7 +60,7 @@
 *** DONE Return JSON from http POST
 - Input: { string1: "<string1>", string2: "<string2>" }
 - Output: { first: "<string1", second: "<string2>" }
-** TODO Tests [33%]
+** TODO Tests [53%]
 *** DONE Data Access [4/4]
 **** DONE dataCreate
 **** DONE dataRead
@@ -71,8 +71,8 @@
 **** TODO readController
 **** TODO updateController
 **** TODO deleteController
-*** TODO Services [0/4]
-**** TODO createService
-**** TODO readService
-**** TODO updateService
+*** TODO Services [3/4]
+**** DONE createService
+**** DONE readService
+**** DONE updateService
 **** TODO deleteService
