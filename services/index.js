@@ -15,15 +15,16 @@ async function createService (doc) {
 
 /**
  * Service to call db.dataRead to read the given query from the database
- * configured in the project's config.json. The length of the returned array is
- * also configured in the project config.
+ * configured in the project's config.json. Unlike the underlying dataAccess
+ * layer, the spec only calls for a single return value. I don't really think
+ * this is particularly useful, but that's what the spec calls for.
  *
  * @param {Object} query - the MongoDB query to match
  * @returns {Object[]} - an array containing the search results
  */
 async function readService (query) {
   const result = await db.dataRead(query)
-  return result
+  return result[0]
 }
 
 /**
