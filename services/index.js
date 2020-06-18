@@ -35,8 +35,11 @@ async function readService (query) {
  * @param {Object} update - MongoDB document specifying the update to perform
  * @returns {bool} - true if update was successful, else returns an error.
  */
-async function updateService (query, update) {
-  await db.dataUpdate(query, update)
+async function updateService (queryPair, updatePairs) {
+  const query = { [queryPair[0]]: queryPair[1] }
+  const updateDoc = {}
+  updatePairs.forEach((pair) => { updateDoc[pair[0]] = pair[1] })
+  await db.dataUpdate(query, { $set: updateDoc })
 }
 
 /**
