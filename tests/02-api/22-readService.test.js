@@ -10,7 +10,7 @@ const { id: targetId } = require('./create.json')
   try {
     const expectedResult = await dataRead(query)
     const result = await services.readService(query)
-    assert.strictEqual(result.length, expectedResult.length)
+    assert.deepStrictEqual(result, expectedResult[0])
     testMessage(testName, true)
   } catch (err) {
     const { expected, actual } = err
