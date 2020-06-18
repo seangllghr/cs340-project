@@ -4,15 +4,15 @@ const assert = require('assert')
 const services = require('../../services')
 const { dataRead } = require('../../db')
 const { testMessage } = require('../testMessage')
-const { id: targetId } = require('./create.json')
+const createDoc = require('./create.json')
+
+const queryArray = Object.entries(createDoc)[0]
 
 ;(async (testName, query, update) => {
   try {
     await services.updateService(query, update)
-    const results = await dataRead(query)
-    results.forEach((result) => {
-      assert.strictEqual(result.result, 'Violation Issued')
-    })
+    const result = await dataRead({ [query[0]]: query[1] })
+    assert.strictEqual(result[0].result, 'Violation Issued')
     testMessage(testName, true)
   } catch (err) {
     const { expected, actual } = err
@@ -25,6 +25,6 @@ const { id: targetId } = require('./create.json')
   }
 })(
   'updateService: Updated record shows updated field value',
-  { id: targetId },
-  { $set: { result: 'Violation Issued' } }
+  queryArray,
+  [['result', 'Violation Issued']]
 )
