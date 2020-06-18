@@ -1,0 +1,108 @@
+---
+author: Sean Gallagher
+title: "Milestone Two: RESTful Web Service"
+short-title: "RESTful Web Service"
+running-head: "RESTful Web Service"
+course: "CS-340: Client/Server Development"
+university: Southern New Hampshire University
+header-block: true
+title-page: false
+bibliography: refs.bib
+listings: true
+linestretch: 1.8
+---
+
+\vskip -12pt
+The specification for the second milestone called for the implementation of the
+actual REST API code, including API endpoints and the code required to transform
+requests to these API endpoints into calls to the data access layer created in
+Milestone 1. In an attempt to approach this project in as professional a manner
+as possible---and lacking any authoritative consesus as to the best approach to
+the problem---I've selected an architecture based roughly on that described by
+@clearyProjectStructureExpress2020. While this architecture adds additional
+complexity to the project that is likely unnecessary at this level, the
+additional learning experience seemed worth the effort. For ease of
+testing, all of the relevant `curl` commands were combined into a single shell
+script, interspersed with additional read requests and text to make the
+resultant output presentation-ready. The full script, `curls.sh`, is listed in
+Listing \ref{lst:curls}. Figure \ref{fig:curl-results} shows the results of
+executing `curls.sh`.
+
+\lstset{
+  backgroundcolor=\color{white},
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  columns=fullflexible,
+  commentstyle=\color{mediumgray}\upshape,
+  emph={},
+  emphstyle=\color{crimson},
+  extendedchars=true,  % requires inputenc
+  fontadjust=true,
+  frame=single,
+  identifierstyle=\color{black},
+  keepspaces=true,
+  keywordstyle=\color{mediumblue},
+  keywordstyle={[2]\color{darkviolet}},
+  keywordstyle={[3]\color{royalblue}},
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showlines=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stringstyle=\color{forestgreen},
+  tabsize=2,
+  title=\lstname,
+  upquote=true  % requires textcomp
+}
+
+\begin{lstlisting}[
+language=sh,
+caption={The Bash script used to generate output verifying correct operation of
+  the four API endpoints.},
+label={lst:curls}
+]
+#!/usr/bin/env bash
+
+echo "Testing Create API Endpoint:"
+curl \
+    -H "Content-Type: application/json" \
+    -X POST \
+    -d @create.json \
+    'http://localhost:3000/api/create'
+echo ""
+
+echo "Testing Read API Endpoint:"
+curl 'http://localhost:3000/api/read?business_name=ACME+TEST+INC.'
+echo ""
+
+echo "Testing Update API Endpoint:"
+curl 'http://localhost:3000/api/update?id=10011-2017-TEST&result=Violation+Issued'
+echo ""
+
+echo "Verification:"
+curl 'http://localhost:3000/api/read?business_name=ACME+TEST+INC.'
+echo ""
+
+echo "Testing Delete API Endpoint:"
+curl 'http://localhost:3000/api/delete?id=10011-2017-TEST'
+echo ""
+
+echo "Verification:"
+curl 'http://localhost:3000/api/read?business_name=ACME+TEST+INC.'
+echo ""
+\end{lstlisting}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\textwidth]{./build/img/curl-results.png}
+  \caption{Results of running \texttt{curls.sh} against the running Express
+    application.}
+  \label{fig:curl-results}
+\end{figure}
+
+\pagebreak
+
+# References
