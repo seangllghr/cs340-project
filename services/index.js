@@ -49,7 +49,7 @@ async function updateService (query, update) {
  */
 async function deleteService (query) {
   // TODO: Delete service logic
-  console.log(query)
+  await db.dataDelete(query)
 }
 
 module.exports = {
