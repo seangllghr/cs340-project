@@ -10,7 +10,6 @@ const db = require('../db/')
  * @returns {bool} - true if insert succeeds, else throws err from Mongo driver
  */
 async function createService (doc) {
-  // TODO: Create service logic
   await db.dataCreate(doc)
 }
 
@@ -23,7 +22,6 @@ async function createService (doc) {
  * @returns {Object[]} - an array containing the search results
  */
 async function readService (query) {
-  // TODO: Read service logic
   const result = await db.dataRead(query)
   return result
 }
@@ -48,7 +46,6 @@ async function updateService (query, update) {
  * @returns {bool} - true if delete was successful, else returns an error
  */
 async function deleteService (query) {
-  // TODO: Delete service logic
   await db.dataDelete(query)
 }
 
