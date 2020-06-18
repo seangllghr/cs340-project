@@ -1,20 +1,15 @@
 #!/usr/bin/env node
 
 const express = require('express')
-const {
-  createController,
-  readController,
-  updateController,
-  deleteController
-} = require('../controllers')
+const ctrl = require('../controllers')
 const router = express.Router()
 
-router.post('/create', createController)
+router.post('/create', ctrl.createController)
 
-router.get('/read', readController)
+router.get('/read', ctrl.readController)
 
-router.get('/update', updateController)
+router.get('/update', ctrl.updateController)
 
-router.get('/delete', deleteController)
+router.get('/delete', ctrl.deleteController)
 
 module.exports = router
