@@ -25,10 +25,11 @@ async function readController (req, res, next) {
 }
 
 async function updateController (req, res, next) {
-  if (Object.entries(req.query).length === 2) {
-    const [query, newValue] = Object.entries(req.query)
+  if (Object.entries(req.query).length >= 2) {
+    const queryPair = Object.entries(req.query)[0]
+    const updatePairs = Object.entries(req.query).slice(1)
     try {
-      await services.UpdateService(query, newValue)
+      await services.updateService(queryPair, updatePairs)
       res.sendStatus(200)
     } catch (err) {
       console.log(err)
