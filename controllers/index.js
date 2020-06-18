@@ -2,7 +2,7 @@
 
 const services = require('../services')
 
-async function createController (req, res, next) {
+async function createController (req, res) {
   const doc = req.body
   try {
     await services.createService(doc)
@@ -13,7 +13,7 @@ async function createController (req, res, next) {
   }
 }
 
-async function readController (req, res, next) {
+async function readController (req, res) {
   const query = req.query
   try {
     const result = await services.readService(query)
@@ -28,7 +28,7 @@ async function readController (req, res, next) {
   }
 }
 
-async function updateController (req, res, next) {
+async function updateController (req, res) {
   if (Object.entries(req.query).length >= 2) {
     const queryPair = Object.entries(req.query)[0]
     const updatePairs = Object.entries(req.query).slice(1)
@@ -44,7 +44,7 @@ async function updateController (req, res, next) {
   }
 }
 
-async function deleteController (req, res, next) {
+async function deleteController (req, res) {
   const query = req.query
   console.log(query)
   try {
