@@ -15,6 +15,7 @@ const createDoc = require('./create.json')
     assert.strictEqual(matchesAfter, (matchesBefore + 1))
     testMessage(testName, true)
   } catch (err) {
+    testMessage(testName, false)
     if (err.constructor === assert.AssertionError) {
       console.log(
         `Expected ${err.expected}` +
@@ -23,6 +24,5 @@ const createDoc = require('./create.json')
     } else {
       console.log(err)
     }
-    testMessage(testName, false)
   }
 })('createService: Document successfully inserted')
