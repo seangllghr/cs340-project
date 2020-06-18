@@ -7,7 +7,6 @@ const db = require('../db/')
  * configured in the project's config.json
  *
  * @param {Object} doc - the document to insert into the database
- * @returns {bool} - true if insert succeeds, else throws err from Mongo driver
  */
 async function createService (doc) {
   await db.dataCreate(doc)
@@ -20,7 +19,7 @@ async function createService (doc) {
  * this is particularly useful, but that's what the spec calls for.
  *
  * @param {Object} query - the MongoDB query to match
- * @returns {Object[]} - an array containing the search results
+ * @returns {Object} - a single matching search document
  */
 async function readService (query) {
   const result = await db.dataRead(query)
@@ -47,7 +46,6 @@ async function updateService (queryPair, updatePairs) {
  * configured in the project's config.json.
  *
  * @param {Object} query - the MongoDB matching documents to delete
- * @returns {bool} - true if delete was successful, else returns an error
  */
 async function deleteService (query) {
   await db.dataDelete(query)
