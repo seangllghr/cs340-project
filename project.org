@@ -18,7 +18,7 @@
     - business logic tests
 ** [[file:server.js][server.js]]
     - server config and init
-* Tasks [71%]
+* Tasks [100%]
   :properties:
   :cookie_data: recursive
   :end:
@@ -33,18 +33,18 @@
 *** DONE Read
 *** DONE Update
 *** DONE Delete
-** TODO Services [3/4]
+** DONE Services [4/4]
 *** DONE Create
 *** DONE Read
 *** DONE Update
-*** TODO Delete
-** TODO Controllers [3/4]
+*** DONE Delete
+** DONE Controllers [4/4]
 *** DONE Create
 *** DONE Read
 *** DONE Update
 - [X] Pop `query` off req.query array and convert it into an object
 - [X] Convert remaining req.query array into an object and create a Mongo $set
-*** STRT Delete
+*** DONE Delete
 ** DONE API Routes [4/4]
 *** DONE Create
 - HTTP POST with JSON document
@@ -62,20 +62,14 @@
 *** DONE Return JSON from http POST
 - Input: { string1: "<string1>", string2: "<string2>" }
 - Output: { first: "<string1", second: "<string2>" }
-** TODO Tests [53%]
+** DONE Tests [100%]
 *** DONE Data Access [4/4]
 **** DONE dataCreate
 **** DONE dataRead
 **** DONE dataUpdate
 **** DONE dataDelete
-*** TODO Controllers [0/4]
-**** TODO createController
-**** TODO readController
-**** TODO updateController
-**** TODO deleteController
-*** TODO Services [3/4]
+*** DONE Services [4/4]
 **** DONE createService
 **** DONE readService
-**** STRT updateService
-- I'm not sure this tests what you think it tests
+**** DONE updateService
 **** DONE deleteService
