@@ -16,8 +16,8 @@ async function createController (req, res, next) {
 async function readController (req, res, next) {
   const query = req.query
   try {
-    await services.readService(query)
-    res.sendStatus(200)
+    const result = await services.readService(query)
+    res.send(JSON.stringify(result, null, 2))
   } catch (err) {
     console.log(err)
     res.sendStatus(500)
