@@ -18,3 +18,6 @@ echo ""
 
 curl 'http://localhost:3000/api/delete?id=10011-2017-TEST'
 echo ""
+
+curl 'http://localhost:3000/api/read?business_name=ACME+TEST+INC.'
+echo ""

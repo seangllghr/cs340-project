@@ -17,7 +17,11 @@ async function readController (req, res, next) {
   const query = req.query
   try {
     const result = await services.readService(query)
-    res.send(JSON.stringify(result, null, 2))
+    if (typeof result !== 'undefined') {
+      res.send(JSON.stringify(result, null, 2))
+    } else {
+      res.send('Search returned no results.')
+    }
   } catch (err) {
     console.log(err)
     res.sendStatus(500)
