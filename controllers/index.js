@@ -76,7 +76,6 @@ async function updateController (req, res) {
  */
 async function deleteController (req, res) {
   const query = req.query
-  console.log(query)
   try {
     await services.deleteService(query)
     res.sendStatus(200)
