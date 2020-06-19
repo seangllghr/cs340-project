@@ -6,7 +6,7 @@
     "port": 27017,
     "auth": "admin"
   },
-  "dbName": "city",
-  "colName": "inspections",
+  "dbName": "market",
+  "colName": "stocks",
   "limit": 20
 }
