@@ -182,12 +182,12 @@
 ****** TODO Process passed data into params :Services:
 ****** TODO Extract GET query and pass to portfolio service :Controllers:
 ****** TODO API route for GET /portfolio request :Routes:
-*** TODO Screenshots [0/18]
+*** TODO Screenshots [1/18]
 :properties:
 :cookie_data: recursive
 :end:
-- [ ] Collection Management:
-  - [ ] Use mongoimport to create db:market col:stocks from stocks.json
+- [-] Collection Management:
+  - [X] Use mongoimport to create db:market col:stocks from stocks.json
   - [ ] Document creation of necessary single or compound indices
 - [ ] Document Manipulation:
   - [ ] Document correct execution of Insert functionality
