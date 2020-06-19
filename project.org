@@ -18,58 +18,189 @@
     - business logic tests
 ** [[file:server.js][server.js]]
     - server config and init
-* Tasks [100%]
+* Final Application Spec
+** Document Manipulation
+*** Insert
+**** MUST read key-value pairs from stdin
+**** MUST read key-value pairs from JSON file
+**** Must create new document if stock document does not exist
+**** MUST insert key-value pairs into existing stock document
+*** Update
+**** MUST accept input string 'Ticker'
+**** MUST accept input number 'Volume'
+***** MUST NOT accept 'Volume' update values lower than 1
+**** MUST set 'Volume' to input 'Volume' in document matching input 'Ticker'
+*** Delete
+**** MUST accept input string 'Ticker'
+**** MUST delete document matching input 'Ticker'
+** Document Retrieval
+*** Find
+**** MUST accept two numeric inputs: 'Low' and 'High'
+**** MUST match documents : 'Low' <= "50-Day Simple Moving Average" <= 'High'
+**** MUST return count of matching documents
+*** Aggregate
+**** MUST accept string 'Sector'
+**** MUST return total outstanding shares
+**** MUST group shares by 'Industry'
+** Advanced Programming Project
+- base URI: http://[hostname]/stocks/api/v1.0/
+*** MUST provide RESTful API endpoints for the basic CRUD operations:
+**** POST (Create) at /createStock/[ticker symbol]
+- Content-Type: application/JSON
+- Responses: 200 OK, 201 Created
+**** GET (Read) at /getStock/[ticker symbol]
+- Responses: 200 OK, 404 Not Found
+**** PUT (Update) at /updateStock/[ticker symbol]
+- Content-Type: application/JSON
+- Responses: 200 OK, 201 Created, 404 Not Found
+**** DELETE at /deleteStock/[ticker symbol]
+- Responses: 200 OK, 404 Not Found
+*** MUST provide RESTful API endpoints for advanced queries:
+**** POST at /stockReport
+- Content-Type: application/JSON
+- Responses: 200 OK, 404 Not Found
+***** MUST accept list of user-defined ticker symbols
+***** MUST select stock summary information matching those ticker symbols
+***** MUST display matching stock summary information
+**** GET at /industryReport/[Industry]
+- Responses: 200 OK, 404 Not Found
+***** MUST accept user-defined industry string
+***** MUST match a portfolio of top five stocks matching industry string
+***** MUST display matching stock portfolio
+**** GET at /portfolio/[company name]
+- Responses: 200 OK, 404 Not Found
+***** MUST accept user-defined company from companies.json
+***** MUST match possible investments grouped by industry
+***** MUST display the matching portfolio
+* Tasks
   :properties:
   :cookie_data: recursive
   :end:
-** DONE npm init
+** Milestone Assignments [100%]
+*** DONE npm init
    CLOSED: [2020-06-04 Thu 11:49]
-** DONE git init
+*** DONE git init
    CLOSED: [2020-06-04 Thu 11:51]
    - [X] README
    - [X] .gitignore
-** DONE Data Access [4/4]
-*** DONE Create
-*** DONE Read
-*** DONE Update
-*** DONE Delete
-** DONE Services [4/4]
-*** DONE Create
-*** DONE Read
-*** DONE Update
-*** DONE Delete
-** DONE Controllers [4/4]
-*** DONE Create
-*** DONE Read
-*** DONE Update
+*** DONE Data Access [4/4]
+**** DONE Create
+**** DONE Read
+**** DONE Update
+**** DONE Delete
+*** DONE Services [4/4]
+**** DONE Create
+**** DONE Read
+**** DONE Update
+**** DONE Delete
+*** DONE Controllers [4/4]
+**** DONE Create
+**** DONE Read
+**** DONE Update
 - [X] Pop `query` off req.query array and convert it into an object
 - [X] Convert remaining req.query array into an object and create a Mongo $set
-*** DONE Delete
-** DONE API Routes [4/4]
-*** DONE Create
+**** DONE Delete
+*** DONE API Routes [4/4]
+**** DONE Create
 - HTTP POST with JSON document
-*** DONE Read
+**** DONE Read
 - HTTP GET /api/read?<query_field>=<value>
-*** DONE Update
+**** DONE Update
 - HTTP GET /api/Update?<query_field>=<value>&<update_field>=<update_value>
-*** DONE Delete
+**** DONE Delete
 - HTTP GET /api/delete?<query_field>=<value>
-** DONE Basic Service (Milestone 2 Prompt 1)
-*** DONE Current Server Time (GET)
-*** DONE Hello $var with GET
+*** DONE Basic Service (Milestone 2 Prompt 1)
+**** DONE Current Server Time (GET)
+**** DONE Hello $var with GET
 - GET request to /hello?name="<var>"
 - Returns JSON: { hello: "<var>" }
-*** DONE Return JSON from http POST
+**** DONE Return JSON from http POST
 - Input: { string1: "<string1>", string2: "<string2>" }
 - Output: { first: "<string1", second: "<string2>" }
-** DONE Tests [100%]
-*** DONE Data Access [4/4]
-**** DONE dataCreate
-**** DONE dataRead
-**** DONE dataUpdate
-**** DONE dataDelete
-*** DONE Services [4/4]
-**** DONE createService
-**** DONE readService
-**** DONE updateService
-**** DONE deleteService
+*** DONE Tests [100%]
+**** DONE Data Access [4/4]
+***** DONE dataCreate
+***** DONE dataRead
+***** DONE dataUpdate
+***** DONE dataDelete
+**** DONE Services [4/4]
+***** DONE createService
+***** DONE readService
+***** DONE updateService
+***** DONE deleteService
+** Final Application [0%]
+*** TODO Features
+**** TODO Library
+***** TODO Insert key-value pairs :Services:
+****** TODO Read user input from stdin
+****** TODO Read uers input from prompt
+***** TODO Update numeric 'Value' matching input string 'Ticker' :Services:
+****** TODO Read user input from stdin
+****** TODO Read uers input from prompt
+***** TODO Delete stock record matching input string 'Ticker' :Services:
+****** TODO Read user input from stdin
+****** TODO Read uers input from prompt
+***** TODO Find documents with '50-Day SMA' in user-defined range :Services:
+****** TODO Read user input from stdin
+****** TODO Read user input from prompt
+***** TODO Aggregate report total outstanding shares by 'Industry' :Services:
+****** TODO Read user input from stdin
+****** TODO Read user input from prompt
+**** TODO API
+***** TODO Send POST request to add key-value pairs
+****** TODO Insert key-value pairs from stream :Data_Access:
+****** TODO Process passed data into stream for DAL :Services:
+****** TODO Extract POST body and pass to create service :Controllers:
+****** TODO API route for POST /createStock request :Routes:
+***** TODO Send GET request to read stock record
+****** TODO Return stock document matching params :Data_Access:
+****** TODO Process passed data into params for DAL :Services:
+****** TODO Extract GET query data and pass to read service :Controllers:
+****** TODO API route for GET /readStock request :Routes:
+***** TODO Send PUT request to update key-value pairs
+****** TODO Update key-value pairs from params :Data_Access:
+****** TODO Process passed data into params for DAL :Services:
+****** TODO Extract PUT body and pass to update service :Controllers:
+****** TODO API route for PUT /updateStock request :Routes:
+***** TODO Send DELETE request to delete stock record
+****** TODO Delete stock documents matching params :Data_Access:
+****** TODO Process passed data into params for DAL :Services:
+****** TODO Extract DELETE request data and pass to delete service :Controllers:
+****** TODO API route for DELETE /deleteStock request :Routes:
+***** TODO Send POST request to return stock report
+****** TODO Query to return stocks matching passed data :Data_Access:
+****** TODO Process passed data into params for DAL :Services:
+****** TODO Extract POST body and pass to stock report service :Controllers:
+****** TODO API route for POST /stockReport request :Routes:
+***** TODO Send GET request to return industry Report
+****** TODO Query to return top stocks matching param :Data_Access:
+****** TODO Process passed data into params for DAL :Services:
+****** TODO Extract GET query and pass to industry report service :Controllers:
+****** TODO API route for GET /industryReport request :Routes:
+***** TODO Send GET request to return portfolio
+****** TODO Query matching passed data :Data_Access:
+****** TODO Process passed data into params :Services:
+****** TODO Extract GET query and pass to portfolio service :Controllers:
+****** TODO API route for GET /portfolio request :Routes:
+*** TODO Screenshots [0/18]
+:properties:
+:cookie_data: recursive
+:end:
+- [ ] Collection Management:
+  - [ ] Use mongoimport to create db:market col:stocks from stocks.json
+  - [ ] Document creation of necessary single or compound indices
+- [ ] Document Manipulation:
+  - [ ] Document correct execution of Insert functionality
+  - [ ] Document correct execution of Update functionality
+  - [ ] Document correct execution of Delete functionality
+- [ ] Document Retrieval:
+  - [ ] Document correct execution of Find functionality
+  - [ ] Document correct execution of aggregation functionality
+- [ ] REST API
+  - [ ] Document correct execution of POST /createStock
+  - [ ] Document correct execution of GET /readStock
+  - [ ] Document correct execution of PUT /updateStock
+  - [ ] Document correct execution of DELETE /deleteStock
+  - [ ] Document correct execution of POST /stockReport
+  - [ ] Document correct execution of GET /industryReport
+  - [ ] Document correct execution of GET /portfolio
