@@ -20,11 +20,11 @@
     - server config and init
 * Final Application Spec
 ** Document Manipulation
-- These are command-line utilities for manipulating the application database
 *** Insert
 **** MUST read key-value pairs from stdin
 **** MUST read key-value pairs from JSON file
-**** Must create new document
+**** Must create new document if stock document does not exist
+**** MUST insert key-value pairs into existing stock document
 *** Update
 **** MUST accept input string 'Ticker'
 **** MUST accept input number 'Volume'
@@ -34,7 +34,6 @@
 **** MUST accept input string 'Ticker'
 **** MUST delete document matching input 'Ticker'
 ** Document Retrieval
-- These are command-line utilities for retrieving data from the application db
 *** Find
 **** MUST accept two numeric inputs: 'Low' and 'High'
 **** MUST match documents : 'Low' <= "50-Day Simple Moving Average" <= 'High'
@@ -44,7 +43,6 @@
 **** MUST return total outstanding shares
 **** MUST group shares by 'Industry'
 ** Advanced Programming Project
-- This is a web service API that forms the basis of the application
 - base URI: http://[hostname]/stocks/api/v1.0/
 *** MUST provide RESTful API endpoints for the basic CRUD operations:
 **** POST (Create) at /createStock/[ticker symbol]
@@ -130,22 +128,22 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [5%]
+** Final Application [0%]
 *** TODO Features
-**** TODO Command Line Utils
-***** DONE Insert document from stream of key-value pairs
-****** DONE Read input document from stdin
-****** DONE Read input document from file
-***** TODO Update numeric 'Value' matching input string 'Ticker'
+**** TODO Library
+***** TODO Insert key-value pairs :Services:
 ****** TODO Read user input from stdin
 ****** TODO Read uers input from prompt
-***** TODO Delete stock record matching input string 'Ticker'
+***** TODO Update numeric 'Value' matching input string 'Ticker' :Services:
 ****** TODO Read user input from stdin
 ****** TODO Read uers input from prompt
-***** TODO Find documents with '50-Day SMA' in user-defined range
+***** TODO Delete stock record matching input string 'Ticker' :Services:
+****** TODO Read user input from stdin
+****** TODO Read uers input from prompt
+***** TODO Find documents with '50-Day SMA' in user-defined range :Services:
 ****** TODO Read user input from stdin
 ****** TODO Read user input from prompt
-***** TODO Aggregate report total outstanding shares by 'Industry'
+***** TODO Aggregate report total outstanding shares by 'Industry' :Services:
 ****** TODO Read user input from stdin
 ****** TODO Read user input from prompt
 **** TODO API
@@ -184,12 +182,12 @@
 ****** TODO Process passed data into params :Services:
 ****** TODO Extract GET query and pass to portfolio service :Controllers:
 ****** TODO API route for GET /portfolio request :Routes:
-*** TODO Screenshots [1/18]
+*** TODO Screenshots [0/18]
 :properties:
 :cookie_data: recursive
 :end:
-- [-] Collection Management:
-  - [X] Use mongoimport to create db:market col:stocks from stocks.json
+- [ ] Collection Management:
+  - [ ] Use mongoimport to create db:market col:stocks from stocks.json
   - [ ] Document creation of necessary single or compound indices
 - [ ] Document Manipulation:
   - [ ] Document correct execution of Insert functionality
