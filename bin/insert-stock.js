@@ -23,6 +23,10 @@ async function readUserInput (argv) {
 
 ;(async () => {
   const argv = parseArgs(process.argv.slice(2))
+  if (argv.help) {
+    console.log('Usage: insert-stock.js [-f <file>]')
+    process.exit(0)
+  }
   try {
     const result = await readUserInput(argv)
     console.log(result)
