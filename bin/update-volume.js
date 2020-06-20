@@ -26,8 +26,7 @@ async function getUpdatedVolume (argv) {
   }
 }
 
-;(async () => {
-  const argv = parseArgs(process.argv.slice(2))
+async function updateStockVolume(argv) {
   let ticker
   try {
     ticker = await getTickerString(argv)
@@ -51,4 +50,9 @@ async function getUpdatedVolume (argv) {
   db.dataUpdate(query, update)
 
   console.log(`Ticker: ${ticker} Volume: ${volume}`)
+}
+
+;(async () => {
+  const argv = parseArgs(process.argv.slice(2))
+  updateStockVolume(argv)
 })()
