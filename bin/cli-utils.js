@@ -2,20 +2,24 @@
 
 const rl = require('readline-sync')
 
-function promptForString (prompt) {
+function promptForString (question) {
   let str = ''
-  console.log(prompt)
+  if (question) {
+    console.log(question)
+  }
   do {
-    str = rl.question('> ')
+    str = rl.prompt()
   } while (str === '')
   return str
 }
 
-function promptForNumber (prompt) {
+function promptForNumber (question) {
   let num
-  console.log(prompt)
+  if (question) {
+    console.log(question)
+  }
   do {
-    num = Number(rl.question('> '))
+    num = Number(rl.prompt())
   } while (isNaN(num) || !num)
   return num
 }
