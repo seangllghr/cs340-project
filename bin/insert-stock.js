@@ -2,38 +2,36 @@
 
 const fs = require('fs')
 const parseArgs = require('minimist')
-const { jsonStreamToObj } = require('../util/jsonUtils')
+const { jsonStreamToMongoDoc } = require('../util/jsonUtils')
 const db = require('../db')
 
-async function readUserInput (argv) {
-  if (Object.prototype.hasOwnProperty.call(argv, 'f')) {
-    console.log(`Loading file: ${argv.f}`)
-    const fileStream = fs.createReadStream(argv.f)
-    const obj = await jsonStreamToObj(fileStream)
-    return obj
-  } else {
-    console.log(
-      'Processing input from stdin. ' +
-        '(Enter Ctrl+d to end if running interactively)'
-    )
-    const obj = await jsonStreamToObj(process.stdin)
-    return obj
-  }
-}
-
 async function insertNewStock (argv) {
-  if (argv.help) {
-    console.log('Usage: insert-stock.js [-f <file>]')
-    process.exit(0)
+  let newStock
+  if (argv.f) {
+    const fileStream = fs.createReadStream(argv.f)
+    try {
+      newStock = await jsonStreamToMongoDoc(fileStream)
+    } catch (err) {
+      console.log('Error in reading JSON file stream to object. Aborting')
+      console.log(err)
+      process.exit(1)
+    }
+  } else {
+    try {
+      newStock = await jsonStreamToMongoDoc(process.stdin)
+    } catch (err) {
+      console.log('Error in reading JSON user input stream to object. Aborting')
+      console.log(err)
+      process.exit(1)
+    }
   }
   try {
-    const result = await readUserInput(argv)
-    console.log(result)
-    db.dataCreate(result)
+    (await db.dataCreate(newStock))
+    console.log(`Stock inserted into db with ticker ${newStock.Ticker}`)
   } catch (err) {
-    (err.constructor === SyntaxError)
-      ? console.log('Invalid JSON. Aborting.')
-      : console.log(err)
+    console.log('Error inserting doc into db. Aborting')
+    console.log(err)
+    process.exit(1)
   }
 }
 
