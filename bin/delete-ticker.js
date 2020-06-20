@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 const parseArgs = require('minimist')
-const { getTickerString } = require('./cli-utils')
+const { promptForString } = require('./cli-utils')
 const db = require('../db')
 
 async function deleteStockByTicker (argv) {
   let ticker
   try {
-    ticker = await getTickerString(argv)
+    ticker = await promptForString(argv)
   } catch (err) {
     console.log(err)
     process.exit(1)

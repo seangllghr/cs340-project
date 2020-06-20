@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const parseArgs = require('minimist')
-const { getTickerString, getUpdatedVolume } = require('./cli-utils')
+const { promptForString, getUpdatedVolume } = require('./cli-utils')
 const db = require('../db')
 
 async function updateStockVolume (argv) {
@@ -11,7 +11,7 @@ async function updateStockVolume (argv) {
   }
   let ticker
   try {
-    ticker = await getTickerString(argv)
+    ticker = argv.t || promptForString('Ticker:')
   } catch (err) {
     console.log(err)
     process.exit(1)

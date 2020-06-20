@@ -2,15 +2,13 @@
 
 const rl = require('readline-sync')
 
-async function getTickerString (argv) {
-  let ticker = 'TEST'
-  if (Object.prototype.hasOwnProperty.call(argv, 't')) {
-    ticker = argv.t
-    return ticker
-  } else {
-    ticker = rl.question('Ticker: ')
-    return ticker
-  }
+function promptForString (prompt) {
+  let str = ''
+  console.log(prompt)
+  do {
+    str = rl.question('> ')
+  } while (str === '')
+  return str
 }
 
 async function getUpdatedVolume (argv) {
@@ -25,6 +23,6 @@ async function getUpdatedVolume (argv) {
 }
 
 module.exports = {
-  getTickerString: getTickerString,
+  promptForString: promptForString,
   getUpdatedVolume: getUpdatedVolume
 }
