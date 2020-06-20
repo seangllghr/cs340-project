@@ -21,8 +21,7 @@ async function readUserInput (argv) {
   }
 }
 
-;(async () => {
-  const argv = parseArgs(process.argv.slice(2))
+async function insertNewStock (argv) {
   if (argv.help) {
     console.log('Usage: insert-stock.js [-f <file>]')
     process.exit(0)
@@ -36,4 +35,9 @@ async function readUserInput (argv) {
       ? console.log('Invalid JSON. Aborting.')
       : console.log(err)
   }
+}
+
+;(async () => {
+  const argv = parseArgs(process.argv.slice(2))
+  insertNewStock(argv)
 })()
