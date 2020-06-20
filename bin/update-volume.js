@@ -26,7 +26,11 @@ async function getUpdatedVolume (argv) {
   }
 }
 
-async function updateStockVolume(argv) {
+async function updateStockVolume (argv) {
+  if (argv.help) {
+    console.log('Usage: update-volume.js [-t <ticker>] [-v <volume>]')
+    process.exit(0)
+  }
   let ticker
   try {
     ticker = await getTickerString(argv)
