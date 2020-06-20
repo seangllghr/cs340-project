@@ -35,5 +35,8 @@ async function deleteStockByTicker (argv) {
 
 ;(async () => {
   const argv = parseArgs(process.argv.slice(2))
+  if (argv.help || argv.h) {
+    console.log('Usage: delete-ticker.js [-t <ticker>]')
+  }
   deleteStockByTicker(argv)
 })()
