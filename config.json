@@ -6,7 +6,7 @@
     "port": 27017,
     "auth": "admin"
   },
-  "dbName": "market",
-  "colName": "stocks",
+  "dbName": "test",
+  "colName": "test",
   "limit": 20
 }
