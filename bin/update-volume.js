@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const parseArgs = require('minimist')
-const { promptForString, getUpdatedVolume } = require('./cli-utils')
+const { promptForString, promptForNumber } = require('./cli-utils')
 const db = require('../db')
 
 async function updateStockVolume (argv) {
@@ -18,7 +18,7 @@ async function updateStockVolume (argv) {
   }
   let volume
   try {
-    volume = await getUpdatedVolume(argv)
+    volume = promptForNumber('Volume:')
   } catch (err) {
     console.log(err)
     process.exit(1)

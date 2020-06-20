@@ -11,18 +11,16 @@ function promptForString (prompt) {
   return str
 }
 
-async function getUpdatedVolume (argv) {
-  let volume = 6
-  if (Object.prototype.hasOwnProperty.call(argv, 'v')) {
-    volume = argv.v
-    return volume
-  } else {
-    volume = rl.question('Volume: ')
-    return parseInt(volume)
-  }
+function promptForNumber (prompt) {
+  let num
+  console.log(prompt)
+  do {
+    num = Number(rl.question('> '))
+  } while (isNaN(num) || !num)
+  return num
 }
 
 module.exports = {
   promptForString: promptForString,
-  getUpdatedVolume: getUpdatedVolume
+  promptForNumber: promptForNumber
 }
