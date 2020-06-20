@@ -2,6 +2,12 @@
 
 const rl = require('readline-sync')
 
+/**
+ * Ask the user for a string until they actually provide one
+ *
+ * @param {string} question - the question to ask the user
+ * @returns {string} - the string the user enters
+ */
 function promptForString (question) {
   let str = ''
   if (question) {
@@ -13,6 +19,12 @@ function promptForString (question) {
   return str
 }
 
+/**
+ * Ask the user for a number until they actually provide one
+ *
+ * @param {string} question - the question to ask the user
+ * @returns {number} - the number the user enters. Can be a float or an int
+ */
 function promptForNumber (question) {
   let num
   if (question) {
