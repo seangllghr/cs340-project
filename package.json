@@ -19,7 +19,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "minimist": "^1.2.5",
-    "mongodb": "^3.5.8"
+    "mongodb": "^3.5.8",
+    "readline-sync": "^1.4.10"
   },
   "devDependencies": {
     "colors": "^1.4.0",
