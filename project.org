@@ -130,15 +130,15 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [5%]
+** Final Application [11%]
 *** TODO Features
 **** TODO Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
 ****** DONE Read input document from stdin
 ****** DONE Read input document from file
-***** TODO Update numeric 'Value' matching input string 'Ticker'
-****** TODO Read user input from stdin
-****** TODO Read uers input from prompt
+***** DONE Update numeric 'Value' matching input string 'Ticker'
+****** DONE Read user input from stdin
+****** DONE Read uers input from prompt
 ***** TODO Delete stock record matching input string 'Ticker'
 ****** TODO Read user input from stdin
 ****** TODO Read uers input from prompt
