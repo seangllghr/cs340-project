@@ -130,7 +130,7 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [22%]
+** Final Application [26%]
 *** TODO Features
 **** TODO Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
@@ -143,6 +143,9 @@
 ****** DONE Read user input from stdin
 ****** DONE Read uers input from prompt
 ***** DONE Find documents with '50-Day SMA' in user-defined range
+****** DONE Read user input from stdin
+****** DONE Read user input from prompt
+***** DONE Find ticker symbols for user-specified industry
 ****** DONE Read user input from stdin
 ****** DONE Read user input from prompt
 ***** TODO Aggregate report total outstanding shares by 'Industry'
