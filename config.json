@@ -8,5 +8,5 @@
   },
   "dbName": "market",
   "colName": "stocks",
-  "limit": 20
+  "limit": 40
 }
