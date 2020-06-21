@@ -130,7 +130,7 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [16%]
+** Final Application [22%]
 *** TODO Features
 **** TODO Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
@@ -142,9 +142,9 @@
 ***** DONE Delete stock record matching input string 'Ticker'
 ****** DONE Read user input from stdin
 ****** DONE Read uers input from prompt
-***** TODO Find documents with '50-Day SMA' in user-defined range
-****** TODO Read user input from stdin
-****** TODO Read user input from prompt
+***** DONE Find documents with '50-Day SMA' in user-defined range
+****** DONE Read user input from stdin
+****** DONE Read user input from prompt
 ***** TODO Aggregate report total outstanding shares by 'Industry'
 ****** TODO Read user input from stdin
 ****** TODO Read user input from prompt
