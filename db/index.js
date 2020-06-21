@@ -29,6 +29,28 @@ async function countMatching (query, opts = config) {
 }
 
 /**
+ * Run an aggregation pipeline operation using the given aggregation pipeline
+ *
+ * @param {Object[]} pipeline - the MongoDB aggregation pipeline array to run
+ * @param {Object} [opts] - optional settings
+ * @param {string} [opts.dbName] - the name of the target database
+ * @param {string} [opts.colName] - the name of the target collection
+ * @param {number} [opts.limit] - the limit of results to return
+ */
+async function dataAggregate (pipeline, opts) {
+  const dbName = (opts && opts.dbName) ? opts.dbName : config.dbName
+  const colName = (opts && opts.colName) ? opts.colName : config.colName
+  const limit = (opts && opts.limit) ? opts.limit : config.limit
+
+  const client = initClient()
+  await client.connect()
+  const col = client.db(dbName).collection(colName)
+  const result = await col.aggregate(pipeline).limit(limit).toArray()
+  client.close()
+  return result
+}
+
+/**
  * Create one or more new records with the specified document(s)
  *
  * @param {(Object|Object[])} document - the document to insert into the db
@@ -159,6 +181,7 @@ function initClient (conf = config) {
 
 module.exports = {
   countMatching: countMatching,
+  dataAggregate: dataAggregate,
   dataCreate: dataCreate,
   dataDelete: dataDelete,
   dataRead: dataRead,
