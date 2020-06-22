@@ -1,5 +1,13 @@
 const services = require('../services')
 
+/**
+ * Receives a POST API request for stock insertion with a given ticker, checks
+ * that the ticker does not already exist in the system, extracts the document
+ * to insert from the request body, and passes it to createService
+ *
+ * @param {Object} req - an Express request object
+ * @param {Object} res - an Express response object
+ */
 async function createController (req, res) {
   try {
     const existingRecord = await services.readService(req.params)
