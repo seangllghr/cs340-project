@@ -130,7 +130,7 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [33%]
+** Final Application [41%]
 *** TODO Features
 **** DONE Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
@@ -152,13 +152,13 @@
 ****** DONE Read user input from stdin
 ****** DONE Read user input from prompt
 **** TODO API
-***** TODO Send POST request to add key-value pairs
-****** TODO Insert key-value pairs from stream :Data_Access:
-****** TODO Process passed data into stream for DAL :Services:
-****** TODO Extract POST body and pass to create service :Controllers:
-****** TODO API route for POST /createStock request :Routes:
+***** DONE Send POST request to add key-value pairs
+****** DONE Process passed data into document object for DAL :Services:
+- added call to convertMongoQueryFunctions to process dates and oids
+****** DONE Extract POST body and pass to create service :Controllers:
+****** DONE API route for POST /createStock request :Routes:
+- repurposed API route from Milestone 2 as /createStock
 ***** TODO Send GET request to read stock record
-****** TODO Return stock document matching params :Data_Access:
 ****** TODO Process passed data into params for DAL :Services:
 ****** TODO Extract GET query data and pass to read service :Controllers:
 ****** TODO API route for GET /readStock request :Routes:
