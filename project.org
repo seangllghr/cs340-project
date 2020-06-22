@@ -130,7 +130,7 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [41%]
+** Final Application [49%]
 *** TODO Features
 **** DONE Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
@@ -152,10 +152,10 @@
 ****** DONE Read user input from stdin
 ****** DONE Read user input from prompt
 **** TODO API
-***** TODO Send POST request to add key-value pairs
-****** TODO Process passed data into document object for DAL :Services:
-****** TODO Extract POST body and pass to create service :Controllers:
-****** TODO API route for POST /createStock request :Routes:
+***** DONE Send POST request to add key-value pairs
+****** DONE Process passed data into document object for DAL :Services:
+****** DONE Extract POST body and pass to create service :Controllers:
+****** DONE API route for POST /createStock request :Routes:
 ***** DONE Send GET request to read stock record
 ****** DONE Process passed data into params for DAL :Services:
 ****** DONE Extract GET query data and pass to read service :Controllers:
