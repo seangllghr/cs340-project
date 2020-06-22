@@ -50,7 +50,15 @@ async function readController (req, res) {
   }
 }
 
+/**
+ * Thing that does stuff
+ */
+async function updateController (req, res) {
+  res.send(req.body)
+}
+
 module.exports = {
   createController: createController,
-  readController: readController
+  readController: readController,
+  updateController: updateController
 }
