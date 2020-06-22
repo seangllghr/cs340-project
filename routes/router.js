@@ -2,9 +2,12 @@
 
 const express = require('express')
 const ctrl = require('../controllers')
+const v1router = require('./v1router')
 const router = express.Router()
 
-router.post('/createStock', ctrl.createController)
+router.use('/v1.0', v1router)
+
+router.post('/create', ctrl.createController)
 
 router.get('/read', ctrl.readController)
 
