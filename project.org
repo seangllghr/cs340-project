@@ -152,16 +152,14 @@
 ****** DONE Read user input from stdin
 ****** DONE Read user input from prompt
 **** TODO API
-***** DONE Send POST request to add key-value pairs
-****** DONE Process passed data into document object for DAL :Services:
-- added call to convertMongoQueryFunctions to process dates and oids
-****** DONE Extract POST body and pass to create service :Controllers:
-****** DONE API route for POST /createStock request :Routes:
-- repurposed API route from Milestone 2 as /createStock
-***** TODO Send GET request to read stock record
-****** TODO Process passed data into params for DAL :Services:
-****** TODO Extract GET query data and pass to read service :Controllers:
-****** TODO API route for GET /readStock request :Routes:
+***** TODO Send POST request to add key-value pairs
+****** TODO Process passed data into document object for DAL :Services:
+****** TODO Extract POST body and pass to create service :Controllers:
+****** TODO API route for POST /createStock request :Routes:
+***** DONE Send GET request to read stock record
+****** DONE Process passed data into params for DAL :Services:
+****** DONE Extract GET query data and pass to read service :Controllers:
+****** DONE API route for GET /readStock request :Routes:
 ***** TODO Send PUT request to update key-value pairs
 ****** TODO Update key-value pairs from params :Data_Access:
 ****** TODO Process passed data into params for DAL :Services:
