@@ -1,7 +1,22 @@
 const services = require('../services')
 
 async function createController (req, res) {
-  res.send(req.params)
+  try {
+    const existingRecord = await services.readService(req.params)
+    if (existingRecord) {
+      res.send(
+        'Ticker symbol already exists in database.\nUse ' +
+          '/api/v1.0/updateStock to update existing stocks.'
+      )
+    } else {
+      await services.createService(req.body)
+      res.status(201)
+      res.send('Record created successfully')
+    }
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
 }
 
 /**
