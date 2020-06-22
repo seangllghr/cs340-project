@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const db = require('../db/')
+const jsonUtils = require('../util/jsonUtils')
 
 /**
  * Service to call db.dataCreate to insert the given document into the database
@@ -9,6 +10,7 @@ const db = require('../db/')
  * @param {Object} doc - the document to insert into the database
  */
 async function createService (doc) {
+  doc = jsonUtils.convertMongoQueryFields(doc)
   await db.dataCreate(doc)
 }
 
