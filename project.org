@@ -130,9 +130,9 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [26%]
+** Final Application [33%]
 *** TODO Features
-**** TODO Command Line Utils
+**** DONE Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
 ****** DONE Read input document from stdin
 ****** DONE Read input document from file
@@ -148,9 +148,9 @@
 ***** DONE Find ticker symbols for user-specified industry
 ****** DONE Read user input from stdin
 ****** DONE Read user input from prompt
-***** TODO Aggregate report total outstanding shares by 'Industry'
-****** TODO Read user input from stdin
-****** TODO Read user input from prompt
+***** DONE Aggregate report total outstanding shares by 'Industry'
+****** DONE Read user input from stdin
+****** DONE Read user input from prompt
 **** TODO API
 ***** TODO Send POST request to add key-value pairs
 ****** TODO Insert key-value pairs from stream :Data_Access:
