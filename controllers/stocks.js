@@ -16,7 +16,7 @@ async function readController (req, res) {
   const query = req.params
   try {
     const result = await services.readService(query)
-    if (Object.keys(result).length !== 0) {
+    if (result) {
       res.send(JSON.stringify(result, null, 2))
     } else {
       res.status(404)
