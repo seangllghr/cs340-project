@@ -4,6 +4,14 @@ async function createController (req, res) {
   res.send(req.params)
 }
 
+/**
+ * Receives a GET API request searching for a stock in the database, extracts
+ * the search query from the request params, passes it to readService, and sends
+ * the returned document to the client, or HTTP 404 if not found
+ *
+ * @param {Object} req - an Express request object
+ * @param {Object} res - an Express response object
+ */
 async function readController (req, res) {
   const query = req.params
   try {
