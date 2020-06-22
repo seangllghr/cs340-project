@@ -4,7 +4,7 @@ const express = require('express')
 const ctrl = require('../controllers')
 const router = express.Router()
 
-router.post('/create', ctrl.createController)
+router.post('/createStock', ctrl.createController)
 
 router.get('/read', ctrl.readController)
 
