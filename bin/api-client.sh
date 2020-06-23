@@ -33,7 +33,9 @@ loadjson () {
 }
 
 readstock () {
-    echo "TODO: Read Stock"
+    read -rp 'Ticker: ' ticker
+    curl "http://localhost:3000/api/v1.0/readStock/$ticker" |
+        yq read --prettyPrint --colors -
 }
 
 stockreport () {
@@ -70,6 +72,7 @@ case $1 in
         insertstock "$2"
         ;;
     "read-stock")
+        readstock "$2"
         ;;
     "stock-report")
         stockreport "$2"
