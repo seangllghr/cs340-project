@@ -58,7 +58,12 @@ async function readController (req, res) {
 }
 
 /**
- * Thing that does stuff
+ * Receives a PUT API request to update a document in the database, checks that
+ * the update document matches the ticker symbol the user is trying to access,
+ * and passes the update document on to updateService
+ *
+ * @param {Object} req - an Express request object
+ * @param {Object} res - an Express response object
  */
 async function updateController (req, res) {
   const query = req.params
