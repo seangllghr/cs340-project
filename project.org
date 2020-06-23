@@ -130,7 +130,7 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [49%]
+** Final Application [66%]
 *** TODO Features
 **** DONE Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
@@ -160,16 +160,14 @@
 ****** DONE Process passed data into params for DAL :Services:
 ****** DONE Extract GET query data and pass to read service :Controllers:
 ****** DONE API route for GET /readStock request :Routes:
-***** TODO Send PUT request to update key-value pairs
-****** TODO Update key-value pairs from params :Data_Access:
-****** TODO Process passed data into params for DAL :Services:
-****** TODO Extract PUT body and pass to update service :Controllers:
-****** TODO API route for PUT /updateStock request :Routes:
-***** TODO Send DELETE request to delete stock record
-****** TODO Delete stock documents matching params :Data_Access:
-****** TODO Process passed data into params for DAL :Services:
-****** TODO Extract DELETE request data and pass to delete service :Controllers:
-****** TODO API route for DELETE /deleteStock request :Routes:
+***** DONE Send PUT request to update key-value pairs
+****** DONE Process passed data into params for DAL :Services:
+****** DONE Extract PUT body and pass to update service :Controllers:
+****** DONE API route for PUT /updateStock request :Routes:
+***** DONE Send DELETE request to delete stock record
+****** DONE Process passed data into params for DAL :Services:
+****** DONE Extract DELETE request data and pass to delete service :Controllers:
+****** DONE API route for DELETE /deleteStock request :Routes:
 ***** TODO Send POST request to return stock report
 ****** TODO Query to return stocks matching passed data :Data_Access:
 ****** TODO Process passed data into params for DAL :Services:
