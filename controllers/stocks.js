@@ -9,20 +9,27 @@ const services = require('../services')
  * @param {Object} res - an Express response object
  */
 async function createController (req, res) {
-  try {
-    const existingRecord = await services.readService(req.params)
-    if (existingRecord) {
-      res.send(
-        'Ticker symbol already exists in database.\nUse ' +
-          '/api/v1.0/updateStock to update existing stocks.'
-      )
-    } else {
-      await services.createService(req.body)
-      res.status(201)
-      res.send('Record created successfully')
+  const requestOK = { ok: true }
+  if (!req.body.Ticker) {
+    requestOK.ok = false
+    requestOK.reason = 'Document missing ticker symbol.'
+  } else {
+    if (req.body.Ticker === req.params.Ticker) {
+      requestOK.ok = false
+      requestOK.reason = 'Document ticker symbol does not match URI'
     }
+  }
+  if (!requestOK.ok) {
+    res.status(400)
+    res.send(requestOK.reason)
+    return
+  }
+  try {
+    const result = await services.createStockService(req.body)
+    console.log(result)
+    res.status(201)
+    res.send('Record created successfully')
   } catch (err) {
-    console.log(err)
     res.sendStatus(500)
   }
 }
@@ -40,6 +47,7 @@ async function readController (req, res) {
   try {
     const result = await services.readService(query)
     if (result) {
+      res.status(200)
       res.send(JSON.stringify(result, null, 2))
     } else {
       res.status(404)
@@ -54,7 +62,27 @@ async function readController (req, res) {
  * Thing that does stuff
  */
 async function updateController (req, res) {
-  res.send(req.body)
+  const query = req.params
+  const update = req.body
+  try {
+    const existingRecord = await services.readService(query)
+    if (existingRecord) {
+      const updateResult = await services.updateService(query, update)
+      if (updateResult.nModified === updateResult.n) {
+        res.status(200)
+        res.send('Record modified')
+      } else {
+        res.status(200)
+        res.send('Record not updated, value already set')
+      }
+    } else {
+      res.status(404)
+      res.send('Record not found')
+    }
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
 }
 
 module.exports = {
