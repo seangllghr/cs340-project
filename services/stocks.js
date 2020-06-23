@@ -24,6 +24,20 @@ async function createStockService (doc) {
   return result
 }
 
+/**
+ * Service to assemble a stock report query for a user-defined set of stock
+ * ticker symbols, pass the query to the DAL, and return the result
+ *
+ * @param {string[]} tickerList - an array of stock ticker symbols
+ * @returns {Object[]} - an array of stock records matching the listed tickers
+ */
+async function stockReportService (tickerList) {
+  const query = { Ticker: { $in: tickerList } }
+  const result = await db.dataRead(query)
+  return result
+}
+
 module.exports = {
-  createStockService: createStockService
+  createStockService: createStockService,
+  stockReportService: stockReportService
 }
