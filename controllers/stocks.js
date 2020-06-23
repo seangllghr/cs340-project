@@ -37,7 +37,21 @@ async function createController (req, res) {
  * Delete stuff
  */
 async function deleteController (req, res) {
-  res.send('Delete stuff')
+  try {
+    const result = await services.deleteService(req.params)
+    let message
+    if (result.n > 0) {
+      message = 'Record successfully deleted.'
+      res.status(200)
+    } else {
+      message = 'Record not found in database'
+      res.status(404)
+    }
+    res.send(message)
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
 }
 
 /**
