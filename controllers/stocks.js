@@ -34,6 +34,13 @@ async function createController (req, res) {
 }
 
 /**
+ * Delete stuff
+ */
+async function deleteController (req, res) {
+  res.send('Delete stuff')
+}
+
+/**
  * Receives a GET API request searching for a stock in the database, extracts
  * the search query from the request params, passes it to readService, and sends
  * the returned document to the client, or HTTP 404 if not found
@@ -91,6 +98,7 @@ async function updateController (req, res) {
 
 module.exports = {
   createController: createController,
+  deleteController: deleteController,
   readController: readController,
   updateController: updateController
 }
