@@ -34,7 +34,11 @@ async function createController (req, res) {
 }
 
 /**
- * Delete stuff
+ * Receives a DELETE API request to delete a document from the database,
+ * extracts the match query from the URI, and passes it to deleteService
+ *
+ * @param {Object} req - an Express request object
+ * @param {Object} res - an Express response object
  */
 async function deleteController (req, res) {
   try {
