@@ -6,7 +6,7 @@ const { promptForString } = require('./cli-utils')
 const db = require('../db')
 
 async function aggregateSharesByIndustry (argv) {
-  const sector = argv.s || promptForString()
+  const sector = argv.s || promptForString('Sector:')
   const pipeline = [
     { $match: { Sector: sector } },
     {
