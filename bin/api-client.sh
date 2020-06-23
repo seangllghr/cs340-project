@@ -13,7 +13,10 @@ industryreport () {
 }
 
 insertstock () {
-    echo "TODO: Insert Stock"
+    loadjson "$1"
+    ticker=$(echo "$inputjson" | jq -cr '.Ticker')
+    curl -H "Content-Type: application/json" -X POST -d "$inputjson" -s \
+        "http://localhost:3000/api/v1.0/createStock/$ticker"
 }
 
 loadjson () {
