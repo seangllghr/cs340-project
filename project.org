@@ -54,7 +54,7 @@
 - Responses: 200 OK, 404 Not Found
 **** PUT (Update) at /updateStock/[ticker symbol]
 - Content-Type: application/JSON
-- Responses: 200 OK, 201 Created, 404 Not Found
+- Responses: 200 OK, 404 Not Found
 **** DELETE at /deleteStock/[ticker symbol]
 - Responses: 200 OK, 404 Not Found
 *** MUST provide RESTful API endpoints for advanced queries:
