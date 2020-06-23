@@ -20,6 +20,7 @@ insertstock () {
 }
 
 loadjson () {
+    jsonpattern='^\[(".*",[[:space:]])*".*"\]$'
     if [[ -f $1 && "${1##*.}" == "json" ]]; then
         inputjson="$(tr '\n' ' ' < "$1")"
     else
@@ -27,7 +28,7 @@ loadjson () {
     fi
     if ! [[ "$inputjson" =~ $jsonpattern ]]; then
         echo "Invalid JSON"
-        return
+        exit 1
     fi
 }
 
