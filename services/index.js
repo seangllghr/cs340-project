@@ -12,7 +12,22 @@ const jsonUtils = require('../util/jsonUtils')
 async function createService (doc) {
   doc = jsonUtils.convertMongoQueryFields(doc)
   const result = await db.dataCreate(doc)
-  return result.result
+  return result
+}
+
+/**
+ * Service to insert a new stock record into the database configured in
+ * config.json. Fundamentally the same as above, but with extra logic to
+ * prevent duplicate ticker symbols.
+ *
+ * @param {Object} doc - the document to insert into the database
+ */
+async function createStockService (doc) {
+  doc = jsonUtils.convertMongoQueryFields(doc)
+  const existingStock = await db.dataRead({ Ticker: doc.Ticker })
+  console.log(existingStock)
+  const result = true
+  return result
 }
 
 /**
@@ -54,6 +69,7 @@ async function deleteService (query) {
 
 module.exports = {
   createService: createService,
+  createStockService: createStockService,
   readService: readService,
   updateService: updateService,
   deleteService: deleteService
