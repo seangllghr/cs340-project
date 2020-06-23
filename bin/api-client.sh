@@ -14,7 +14,19 @@ industryreport () {
 
 insertstock () {
     echo "TODO: Insert Stock"
-} 
+}
+
+loadjson () {
+    if [[ -f $1 && "${1##*.}" == "json" ]]; then
+        inputjson="$(tr '\n' ' ' < "$1")"
+    else
+        inputjson="$1"
+    fi
+    if ! [[ "$inputjson" =~ $jsonpattern ]]; then
+        echo "Invalid JSON"
+        return
+    fi
+}
 
 readstock () {
     echo "TODO: Read Stock"
@@ -28,17 +40,9 @@ Sector: .Sector,
 Industry: .Industry,
 Price: .Price
 }]'
-    if [[ -f $1 && "${1##*.}" == "json" ]]; then
-        tickerjson="$(tr '\n' ' ' < "$1")"
-    else
-        tickerjson="$1"
-    fi
-    if ! [[ "$tickerjson" =~ $jsonpattern ]]; then
-        echo "Invalid JSON"
-        return
-    fi
-    echo "Running stock report on $tickerjson"
-    curl -H "Content-Type: application/json" -X POST -d "$tickerjson" -s \
+    loadjson "$1"
+    echo "Running stock report on $inputjson"
+    curl -H "Content-Type: application/json" -X POST -d "$inputjson" -s \
         'http://localhost:3000/api/v1.0/stockReport' |
         jq -cr "$jqfilter" |
         yq read --prettyPrint --colors -
