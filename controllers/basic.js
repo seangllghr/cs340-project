@@ -55,8 +55,13 @@ async function updateController (req, res) {
   if (Object.entries(req.query).length >= 2) {
     const queryPair = Object.entries(req.query)[0]
     const updatePairs = Object.entries(req.query).slice(1)
+    const query = { [queryPair[0]]: queryPair[1] }
+    const update = {}
+    updatePairs.forEach((pair) => {
+      update[pair[0]] = pair[1]
+    })
     try {
-      await services.updateService(queryPair, updatePairs)
+      await services.updateService(query, update)
       res.sendStatus(200)
     } catch (err) {
       console.log(err)
