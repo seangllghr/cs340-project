@@ -25,7 +25,7 @@ async function createController (req, res) {
     return
   }
   try {
-    await services.createStockService(req.body)
+    await services.stocks.createStockService(req.body)
     res.status(201)
     res.send('Record created successfully')
   } catch (err) {

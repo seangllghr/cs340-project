@@ -17,25 +17,6 @@ async function createService (doc) {
 }
 
 /**
- * Service to insert a new stock record into the database configured in
- * config.json. Fundamentally the same as above, but with extra logic to
- * prevent duplicate ticker symbols.
- *
- * @param {Object} doc - the document to insert into the database
- */
-async function createStockService (doc) {
-  doc = jsonUtils.convertMongoQueryFields(doc)
-  const existingStock = await db.dataRead({ Ticker: doc.Ticker })
-  let result
-  if (existingStock.length === 0) {
-    result = await db.dataCreate(doc)
-  } else {
-    result = false
-  }
-  return result
-}
-
-/**
  * Service to call db.dataRead to read the given query from the database
  * configured in the project's config.json. Unlike the underlying dataAccess
  * layer, the spec only calls for a single return value. I don't really think
@@ -74,8 +55,8 @@ async function deleteService (query) {
 
 module.exports = {
   createService: createService,
-  createStockService: createStockService,
   readService: readService,
   updateService: updateService,
-  deleteService: deleteService
+  deleteService: deleteService,
+  stocks: stocks
 }
