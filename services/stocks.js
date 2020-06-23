@@ -25,6 +25,14 @@ async function createStockService (doc) {
 }
 
 /**
+ * Service to assemble an industry report query for a user-defined industry
+ * string, pass the query to the DAL, and return the result
+ */
+async function industryReportService (industry) {
+  return industry
+}
+
+/**
  * Service to assemble a stock report query for a user-defined set of stock
  * ticker symbols, pass the query to the DAL, and return the result
  *
@@ -39,5 +47,6 @@ async function stockReportService (tickerList) {
 
 module.exports = {
   createStockService: createStockService,
+  industryReportService: industryReportService,
   stockReportService: stockReportService
 }

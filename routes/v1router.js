@@ -14,4 +14,6 @@ router.delete('/deleteStock/:Ticker', ctrl.stocks.deleteController)
 
 router.post('/stockReport', ctrl.stocks.stockReportController)
 
+router.get('/industryReport', ctrl.stocks.industryReportController)
+
 module.exports = router

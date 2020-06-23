@@ -59,6 +59,19 @@ async function deleteController (req, res) {
 }
 
 /**
+ * Receives a GET API request for an industry report, extracts the industry
+ * string from the GET query, passes it to the industry report service, and
+ * sends the returned JSON to the client
+ *
+ * @param
+ */
+async function industryReportController (req, res) {
+  const result = await industryReportController(req.query.Industry)
+  res.status(200)
+  res.send(result)
+}
+
+/**
  * Receives a GET API request searching for a stock in the database, extracts
  * the search query from the request params, passes it to readService, and sends
  * the returned document to the client, or HTTP 404 if not found
@@ -139,6 +152,7 @@ async function updateController (req, res) {
 module.exports = {
   createController: createController,
   deleteController: deleteController,
+  industryReportController: industryReportController,
   readController: readController,
   stockReportController: stockReportController,
   updateController: updateController
