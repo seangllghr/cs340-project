@@ -2,6 +2,7 @@
 
 const db = require('../db/')
 const jsonUtils = require('../util/jsonUtils')
+const stocks = require('./stocks')
 
 /**
  * Service to call db.dataCreate to insert the given document into the database
