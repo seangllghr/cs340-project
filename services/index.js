@@ -11,7 +11,8 @@ const jsonUtils = require('../util/jsonUtils')
  */
 async function createService (doc) {
   doc = jsonUtils.convertMongoQueryFields(doc)
-  await db.dataCreate(doc)
+  const result = await db.dataCreate(doc)
+  return result.result
 }
 
 /**
@@ -36,7 +37,8 @@ async function readService (query) {
  * @param {Array[]} updatePairs - an object containing key-value pairs to update
  */
 async function updateService (query, update) {
-  await db.dataUpdate(query, { $set: update })
+  const result = await db.dataUpdate(query, { $set: update })
+  return result.result
 }
 
 /**
@@ -46,7 +48,8 @@ async function updateService (query, update) {
  * @param {Object} query - the MongoDB matching documents to delete
  */
 async function deleteService (query) {
-  await db.dataDelete(query)
+  const result = await db.dataDelete(query)
+  return result.result
 }
 
 module.exports = {
