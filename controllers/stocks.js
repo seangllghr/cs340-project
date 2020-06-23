@@ -14,7 +14,7 @@ async function createController (req, res) {
     requestOK.ok = false
     requestOK.reason = 'Document missing ticker symbol.'
   } else {
-    if (req.body.Ticker === req.params.Ticker) {
+    if (req.body.Ticker !== req.params.Ticker) {
       requestOK.ok = false
       requestOK.reason = 'Document ticker symbol does not match URI'
     }
@@ -25,8 +25,7 @@ async function createController (req, res) {
     return
   }
   try {
-    const result = await services.createStockService(req.body)
-    console.log(result)
+    await services.createStockService(req.body)
     res.status(201)
     res.send('Record created successfully')
   } catch (err) {

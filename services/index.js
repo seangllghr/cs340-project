@@ -25,8 +25,12 @@ async function createService (doc) {
 async function createStockService (doc) {
   doc = jsonUtils.convertMongoQueryFields(doc)
   const existingStock = await db.dataRead({ Ticker: doc.Ticker })
-  console.log(existingStock)
-  const result = true
+  let result
+  if (existingStock.length === 0) {
+    result = await db.dataCreate(doc)
+  } else {
+    result = false
+  }
   return result
 }
 
