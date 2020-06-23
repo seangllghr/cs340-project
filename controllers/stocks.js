@@ -83,6 +83,28 @@ async function readController (req, res) {
 }
 
 /**
+ * Shows a report of stocks in a list of user-supplied stock tickers
+ *
+ * @param {Object} req - an Express request object
+ * @param {Object} res - an Express response object
+ */
+async function stockReportController (req, res) {
+  try {
+    if (req.body.length > 0) {
+      const result = await services.stocks.stockReportService(req.body)
+      res.status(200)
+      res.send(result)
+    } else {
+      res.status(400)
+      res.send('Request body must be a list of stock ticker symbols')
+    }
+  } catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
+}
+
+/**
  * Receives a PUT API request to update a document in the database, checks that
  * the update document matches the ticker symbol the user is trying to access,
  * and passes the update document on to updateService
@@ -118,5 +140,6 @@ module.exports = {
   createController: createController,
   deleteController: deleteController,
   readController: readController,
+  stockReportController: stockReportController,
   updateController: updateController
 }
