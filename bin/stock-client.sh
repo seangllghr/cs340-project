@@ -15,7 +15,9 @@ deletestock () {
 }
 
 industryreport () {
-    echo "TODO: Industry Report"
+    industry=$(uriencode "$1")
+    curl -s "http://localhost:3000/api/v1.0/industryReport/$industry" |
+        yq read --prettyPrint --colors -
 }
 
 insertstock () {
@@ -36,14 +38,25 @@ loadjson () {
     fi
 }
 
+printhelp () {
+    echo "This program is offered as a rudimentary frontend for accessing
+the stocks API. Input is either as unformatted string or JSON- or YAML-formatted
+document (which can be passed inline at the command line or loaded from a file).
+Strings passed on the command line should be single-quoted.
+
+Usage: stock-client delete [ticker]
+       stock-client industry-report [industry]
+       stock-client insert <JSON/YAML stock document>
+       stock-client read [ticker]
+       stock-client stock-report <JSON/YAML ticker list>
+       stock-client update <ticker> <JSON/YAML update document>"
+}
+
 readstock () {
-    if [[ $# -eq 1 ]]; then
-        ticker=$1
-    else
-        read -rp 'Ticker: ' ticker
-    fi
+    ticker=$1
     curl "http://localhost:3000/api/v1.0/readStock/$ticker" -s |
-        yq read --prettyPrint --colors -
+        yq read --prettyPrint --colors - |
+        less
 }
 
 stockreport () {
@@ -65,39 +78,51 @@ Price: .Price
 updatestock () {
     ticker=$1
     loadjson "$2"
-    echo "Ticker: $ticker Update JSON: $inputjson"
     curl -H "Content-Type: application/json" -X PUT -d "$inputjson" -s \
         "http://localhost:3000/api/v1.0/updateStock/$ticker"
     echo ""
 }
 
+uriencode () { jq -nr --arg v "$1" '$v|@uri'; }
+
+if [[ $# -lt 1 || $# -gt 3 ]]; then
+    echo "Incorrect number of arguments"
+    printhelp
+    exit 1
+elif [[ $# -eq 2 ]]; then
+    input=$2
+fi
 case $1 in
     "company-portfolio")
-        companyportfolio "$2"
+        companyportfolio "$input"
         ;;
     "delete")
-        deletestock "$2"
+        deletestock "$input"
         ;;
     "industry-report")
-        industryreport "$2"
+        if ! [[ $# -eq 2 ]]; then read -rp 'Industry: ' input; fi
+        industryreport "$input"
         ;;
     "insert")
-        insertstock "$2"
+        insertstock "$input"
         ;;
     "read")
-        readstock "$2"
+        if ! [[ $# -eq 2 ]]; then read -rp 'Ticker: ' input; fi
+        readstock "$input"
         ;;
     "stock-report")
-        stockreport "$2"
+        stockreport "$input"
         ;;
     "update")
+        if ! [[ $# -eq 3 ]]; then
+            echo "Incorrect number of arguments"
+            printhelp
+            exit 1
+        fi
         updatestock "$2" "$3"
         ;;
     "help")
-        echo "This program is offered as a rudimentary frontend for accessing
-the stocks API. It supports the following options:
-"
-        echo "  api-client stock-report <JSON string or file>"
+        printhelp
         ;;
     *)
         echo "Unrecognized command. Aborting"
