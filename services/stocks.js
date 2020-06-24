@@ -29,7 +29,13 @@ async function createStockService (doc) {
  * string, pass the query to the DAL, and return the result
  */
 async function industryReportService (industry) {
-  return industry
+  const pipeline = [
+    { $match: { Industry: industry } },
+    { $sort: { 'Analyst Recom': -1 } },
+    { $limit: 5 }
+  ]
+  const result = await db.dataAggregate(pipeline)
+  return result
 }
 
 /**
