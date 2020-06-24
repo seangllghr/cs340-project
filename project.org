@@ -130,7 +130,7 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [83%]
+** Final Application [96%]
 *** TODO Features
 **** DONE Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
@@ -151,7 +151,7 @@
 ***** DONE Aggregate report total outstanding shares by 'Industry'
 ****** DONE Read user input from stdin
 ****** DONE Read user input from prompt
-**** TODO API
+**** DONE API
 ***** DONE Send POST request to add key-value pairs
 ****** DONE Process passed data into document object for DAL :Services:
 ****** DONE Extract POST body and pass to create service :Controllers:
@@ -176,19 +176,20 @@
 ****** DONE Process passed data into params for DAL :Services:
 ****** DONE Extract GET query and pass to industry report service :Controllers:
 ****** DONE API route for GET /industryReport request :Routes:
-***** TODO Send GET request to return portfolio
-****** TODO Query matching passed data :Data_Access:
-****** TODO Process passed data into params :Services:
-****** TODO Extract GET query and pass to portfolio service :Controllers:
-****** TODO API route for GET /portfolio request :Routes:
-**** STRT Bash Client
+***** KILL Send GET request to return portfolio
+While this feature is mentioned in the prompt summary, it does not appear in the
+detailed specification or the project rubric. Thus, I've decided to omit it.
+****** KILL Process passed data into params :Services:
+****** KILL Extract GET query and pass to portfolio service :Controllers:
+****** KILL API route for GET /portfolio request :Routes:
+**** DONE Bash Client
 ***** DONE insert
 ***** DONE read
 ***** DONE update
 ***** DONE delete
 ***** DONE stock-report
 ***** DONE industry-report
-***** TODO company-portfolio
+***** KILL company-portfolio
 *** TODO Screenshots [1/18]
 :properties:
 :cookie_data: recursive
