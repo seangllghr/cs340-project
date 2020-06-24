@@ -57,7 +57,12 @@ Price: .Price
 }
 
 updatestock () {
-    echo "TODO: Update Stock"
+    ticker=$1
+    loadjson "$2"
+    echo "Ticker: $ticker Update JSON: $inputjson"
+    curl -H "Content-Type: application/json" -X PUT -d "$inputjson" -s \
+        "http://localhost:3000/api/v1.0/updateStock/$ticker"
+    echo ""
 }
 
 case $1 in
