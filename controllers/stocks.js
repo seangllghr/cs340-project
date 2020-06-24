@@ -66,7 +66,8 @@ async function deleteController (req, res) {
  * @param
  */
 async function industryReportController (req, res) {
-  const result = await industryReportController(req.query.Industry)
+  const Industry = req.params.Industry
+  const result = await services.stocks.industryReportService(Industry)
   res.status(200)
   res.send(result)
 }
