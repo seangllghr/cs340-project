@@ -20,15 +20,13 @@ insertstock () {
 }
 
 loadjson () {
-    jsonpattern='^\[(".*",[[:space:]])*".*"\]$'
-    if [[ -f $1 && "${1##*.}" == "json" ]]; then
-        inputjson="$(tr '\n' ' ' < "$1")"
+    # I spent hours trying to do this with regex. It mostly worked, except when
+    # it didn't. This is my rage-flip and quit solution. Serendipitously, it
+    # allows the client to accept input in both YAML and JSON.
+    if [[ -f $1 ]]; then
+        inputjson=$(yq read --tojson $1) || exit 1
     else
-        inputjson="$1"
-    fi
-    if ! [[ "$inputjson" =~ $jsonpattern ]]; then
-        echo "Invalid JSON"
-        exit 1
+        inputjson=$(echo $1 | yq read --tojson -) || exit 1
     fi
 }
 
