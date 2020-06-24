@@ -130,7 +130,7 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [96%]
+** Final Application [63%]
 *** TODO Features
 **** DONE Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
@@ -190,13 +190,18 @@ detailed specification or the project rubric. Thus, I've decided to omit it.
 ***** DONE stock-report
 ***** DONE industry-report
 ***** KILL company-portfolio
-*** TODO Screenshots [1/18]
+*** TODO Indices
+**** TODO Ticker Symbol [ascending] :simple:
+**** TODO Industry [ascending] Analyst Recom [descending] :compound:
+*** TODO Screenshots [1/19]
 :properties:
 :cookie_data: recursive
 :end:
 - [-] Collection Management:
   - [X] Use mongoimport to create db:market col:stocks from stocks.json
   - [ ] Document creation of necessary single or compound indices
+    - [ ] simple index on `Ticker` [ascending]
+    - [ ] compound index on `Industry` [ascending] `Analyst Recom` [descending]
 - [ ] Document Manipulation:
   - [ ] Document correct execution of Insert functionality
   - [ ] Document correct execution of Update functionality
@@ -212,3 +217,30 @@ detailed specification or the project rubric. Thus, I've decided to omit it.
   - [ ] Document correct execution of POST /stockReport
   - [ ] Document correct execution of GET /industryReport
   - [ ] Document correct execution of GET /portfolio
+*** TODO Documentation
+**** TODO Collection Management
+***** TODO Database Creation and Import
+***** TODO Index Design and Implementation
+**** TODO Document Manipulation
+***** TODO Libraries
+****** TODO cli-utils
+****** TODO jsonUtils
+***** TODO Command line tools
+****** TODO insert-stock
+****** TODO update-stock
+****** TODO delete-stock
+**** TODO Document Retrieval
+***** TODO Command line tools
+****** TODO sma-spread
+****** TODO tickers-by-industry
+****** TODO agg-shares
+**** TODO Stock Record System API
+***** TODO stock-client.sh :aside:
+***** TODO Basic CRUD Operations
+****** TODO Create
+****** TODO Read
+****** TODO Update
+****** TODO Delete
+***** TODO Advanced Reports
+****** TODO Portfolio Report
+****** TODO Industry Report
