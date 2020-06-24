@@ -32,7 +32,7 @@ loadjson () {
     if [[ -f $1 ]]; then
         inputjson=$(yq read --tojson $1) || exit 1
     else
-        inputjson=$(echo $1 | yq read --tojson -) || exit 1
+        inputjson=$(echo "$1" | yq read --tojson -) || exit 1
     fi
 }
 
