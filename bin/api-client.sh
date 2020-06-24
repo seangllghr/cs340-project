@@ -31,8 +31,12 @@ loadjson () {
 }
 
 readstock () {
-    read -rp 'Ticker: ' ticker
-    curl "http://localhost:3000/api/v1.0/readStock/$ticker" |
+    if [[ $# -eq 1 ]]; then
+        ticker=$1
+    else
+        read -rp 'Ticker: ' ticker
+    fi
+    curl "http://localhost:3000/api/v1.0/readStock/$ticker" -s |
         yq read --prettyPrint --colors -
 }
 
