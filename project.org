@@ -130,7 +130,7 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [75%]
+** Final Application [83%]
 *** TODO Features
 **** DONE Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
@@ -172,16 +172,23 @@
 ****** DONE Process passed data into params for DAL :Services:
 ****** DONE Extract POST body and pass to stock report service :Controllers:
 ****** DONE API route for POST /stockReport request :Routes:
-***** TODO Send GET request to return industry Report
-****** TODO Query to return top stocks matching param :Data_Access:
-****** TODO Process passed data into params for DAL :Services:
-****** TODO Extract GET query and pass to industry report service :Controllers:
-****** TODO API route for GET /industryReport request :Routes:
+***** DONE Send GET request to return industry Report
+****** DONE Process passed data into params for DAL :Services:
+****** DONE Extract GET query and pass to industry report service :Controllers:
+****** DONE API route for GET /industryReport request :Routes:
 ***** TODO Send GET request to return portfolio
 ****** TODO Query matching passed data :Data_Access:
 ****** TODO Process passed data into params :Services:
 ****** TODO Extract GET query and pass to portfolio service :Controllers:
 ****** TODO API route for GET /portfolio request :Routes:
+**** STRT Bash Client
+***** DONE insert
+***** DONE read
+***** DONE update
+***** DONE delete
+***** DONE stock-report
+***** DONE industry-report
+***** TODO company-portfolio
 *** TODO Screenshots [1/18]
 :properties:
 :cookie_data: recursive
