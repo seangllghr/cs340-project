@@ -15,8 +15,17 @@ deletestock () {
 }
 
 industryreport () {
+    jqfilter='[.[] | {
+Ticker: .Ticker,
+Company: .Company,
+Sector: .Sector,
+Industry: .Industry,
+Price: .Price,
+"Analyst Recom": ."Analyst Recom"
+}]'
     industry=$(uriencode "$1")
     curl -s "http://localhost:3000/api/v1.0/industryReport/$industry" |
+        jq -cr "$jqfilter" |
         yq read --prettyPrint --colors -
 }
 
