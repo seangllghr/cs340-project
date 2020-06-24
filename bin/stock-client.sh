@@ -6,7 +6,7 @@ companyportfolio () {
 
 deletestock () {
     if [[ $# -eq 1 ]]; then
-        ticker=$1
+        ticker=$(echo "$1" | tr '[:lower:]' '[:upper:]')
     else
         read -rp 'Ticker: ' ticker
     fi
@@ -41,7 +41,7 @@ loadjson () {
     # it didn't. This is my rage-flip and quit solution. Serendipitously, it
     # allows the client to accept input in both YAML and JSON.
     if [[ -f $1 ]]; then
-        inputjson=$(yq read --tojson $1) || exit 1
+        inputjson=$(yq read --tojson "$1") || exit 1
     else
         inputjson=$(echo "$1" | yq read --tojson -) || exit 1
     fi
@@ -62,7 +62,7 @@ Usage: stock-client delete [ticker]
 }
 
 readstock () {
-    ticker=$1
+    ticker=$(echo "$1" | tr '[:lower:]' '[:upper:]')
     curl "http://localhost:3000/api/v1.0/readStock/$ticker" -s |
         yq read --prettyPrint --colors - |
         less
@@ -85,7 +85,7 @@ Price: .Price
 }
 
 updatestock () {
-    ticker=$1
+    ticker=$(echo "$1" | tr '[:lower:]' '[:upper:]')
     loadjson "$2"
     curl -H "Content-Type: application/json" -X PUT -d "$inputjson" -s \
         "http://localhost:3000/api/v1.0/updateStock/$ticker"
