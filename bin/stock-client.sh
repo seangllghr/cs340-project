@@ -5,7 +5,13 @@ companyportfolio () {
 }
 
 deletestock () {
-    echo "TODO: Delete Stock"
+    if [[ $# -eq 1 ]]; then
+        ticker=$1
+    else
+        read -rp 'Ticker: ' ticker
+    fi
+    curl -X DELETE "http://localhost:3000/api/v1.0/deleteStock/$ticker" -s
+    echo ""
 }
 
 industryreport () {
@@ -69,22 +75,22 @@ case $1 in
     "company-portfolio")
         companyportfolio "$2"
         ;;
-    "delete-stock")
+    "delete")
         deletestock "$2"
         ;;
     "industry-report")
         industryreport "$2"
         ;;
-    "insert-stock")
+    "insert")
         insertstock "$2"
         ;;
-    "read-stock")
+    "read")
         readstock "$2"
         ;;
     "stock-report")
         stockreport "$2"
         ;;
-    "update-stock")
+    "update")
         updatestock "$2" "$3"
         ;;
     "help")
