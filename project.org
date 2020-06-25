@@ -218,29 +218,27 @@ detailed specification or the project rubric. Thus, I've decided to omit it.
   - [ ] Document correct execution of GET /industryReport
   - [ ] Document correct execution of GET /portfolio
 *** TODO Documentation
-**** TODO Collection Management
-***** TODO Database Creation and Import
-***** TODO Index Design and Implementation
-**** TODO Document Manipulation
-***** TODO Libraries
-****** TODO cli-utils
-****** TODO jsonUtils
-***** TODO Command line tools
-****** TODO insert-stock
-****** TODO update-stock
-****** TODO delete-stock
-**** TODO Document Retrieval
-***** TODO Command line tools
-****** TODO sma-spread
-****** TODO tickers-by-industry
-****** TODO agg-shares
-**** TODO Stock Record System API
-***** TODO stock-client.sh :aside:
-***** TODO Basic CRUD Operations
-****** TODO Create
-****** TODO Read
-****** TODO Update
-****** TODO Delete
-***** TODO Advanced Reports
-****** TODO Portfolio Report
-****** TODO Industry Report
+**** Database Administration
+***** Initial Back End Setup
+****** Database Creation and Import
+****** Index Design and Implementation
+***** Libraries
+****** `cli-utils`
+****** `jsonUtils`
+***** Command Line Tools
+****** Creating New Stock Records with `insert-stock`
+****** Updating Existing Stock Records with `update-stock`
+****** Deleting Existing Stock Records with `delete-stock`
+****** `sma-spread`, a Demonstration of Complex Find Queries
+****** Generating a List of Stock Ticker Symbols in a Given Industry
+****** Generating a List of Outstanding Shares by Industry
+**** Securities Data Reporting System Web Service API
+***** Aside: `stock-client.sh`, a Rudimentary Bash SDRS Client
+***** Basic CRUD Operations
+****** Performing Create Operations
+****** Performing Read Operations
+****** Performing Update Operations
+****** Performing Delete Operations
+***** Advanced Reporting Features
+****** Portfolio Reports
+****** Industry Reports
