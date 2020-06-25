@@ -130,7 +130,7 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [63%]
+** Final Application [90%]
 *** TODO Features
 **** DONE Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
