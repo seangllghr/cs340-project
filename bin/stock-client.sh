@@ -101,6 +101,7 @@ if [[ $# -lt 1 || $# -gt 3 ]]; then
 elif [[ $# -eq 2 ]]; then
     input=$2
 fi
+hostname="localhost"
 case $1 in
     "company-portfolio")
         companyportfolio "$input"
