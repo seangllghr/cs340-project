@@ -1,2 +1,2 @@
-document=main.md
-buildtype="apa-html"
+document=main.tex
+buildtype="math-latex"

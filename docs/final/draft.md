@@ -1,7 +1,7 @@
 ---
 author: Sean Gallagher
-title: "Securities Tracking, Observation, and Computational Knowledge System:
-        <br/>Documentation and Development Report"
+title: "Securities Tracking, Observation, and Computational Knowledge System:"
+subtitle: "System Documentation and Development Report"
 short-title: "SDRS Documentation"
 running-head: "SDRS DOCUMENTATION"
 course: "CS-340: Client-Server Development"
@@ -10,6 +10,8 @@ header-block: false
 title-page: true
 classic-title: true
 bibliography: refs.bib
+fontsize: 11pt
+listings: true
 ---
 
 Professionals in the Financial Services sector must track and account for a
@@ -36,12 +38,15 @@ the primary interface for both daily use and administration of the
 system---includes endpoints for basic database manipulation and the two
 specified reporting interfaces. Each section includes detailed descriptions of
 operations involved in system administration, as well as screenshots
-illustrating operations and their results. Names of variables, options, and
-executable scripts or programs are set inline in `monospace`. Additionally,
-commands meant to be entered directly at a Linux or MongoDB shell prompt follow
-the convention:
+illustrating operations and their results. Names of variables, options,
+executable scripts or programs, and short commands meant to be entered at a
+Linux or MongoDB shell prompt are set inline in `monospace`. Long commands,
+especially those that extend across more than one line, will be set according to
+the following convention:
 
-    $ command [optional value] <mandatory value>
+\begin{lstlisting}
+  > command [optional value] <mandatory value>
+\end{lstlisting}
 
 ## Installing, Initializing, and Adminstering the System
 
@@ -58,14 +63,41 @@ installing, configuring, and securing a MongoDB server instance; and basic usage
 of Node's `npm` package manager. Once these dependencies are met, issue the
 following command to download the system files:
 
-    $ git clone --depth 1 https://github.com/seangllghr/cs340-project
+\begin{lstlisting}
+  > git clone --depth 1 https://github.com/seangllghr/cs340-project
+\end{lstlisting}
 
-<p class="no-indent"> As with any `git clone` operation, you can specify a custom
+\noindent As with any `git clone` operation, you can specify a custom
 installation directory at the end of the command. Once the files have been
-downloaded, enter the installation directory and run</p>
+downloaded, enter the installation directory and run `npm install` to
+install the necessary Node dependencies
 
-    $ npm install
+### System Initialization and Configuration
 
-<p class="no-indent">to install the necessary Node dependencies.</p>
-    
+Once the system and its dependencies have been installed, the administrator
+should seed the database with data. Seed data should take the form of JSON
+securities data; while the specifics of the application will dictate the details
+of the schema, the included utilities and API expect each stock to have the
+following fields:
+
+- `Ticker` (unique)
+- `Sector`
+- `Industry`
+- `Volume`
+- `50-Day Simple Moving Average`
+- `Analyst Recom`
+
+Figure [Fig] depicts the process of importing seed data into
+the database instance using the `mongoimport` command. While the specific
+construction of the command will depend on the environment and configuration of
+the MongoDB server, the general form is:
+
+\begin{lstlisting}[language=sh]
+  mongoimport \
+  [--host=<host>] [--port=<port>] \
+  [authentication opts] \
+  [--db=<db>] [--collection=<collection>] \
+  <file>
+\end{lstlisting}
+
 <!-- [Just call it STOCKS.]{.footnote} -->

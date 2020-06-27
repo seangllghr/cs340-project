@@ -1,0 +1,538 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+11pt,
+titlepage,
+]{article}
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+\usepackage{unicode-math}
+\defaultfontfeatures{Scale=MatchLowercase}
+\defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Securities Tracking, Observation, and Computational Knowledge System:},
+  pdfauthor={Sean Gallagher},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{etoolbox}
+\usepackage{listings}
+\newcommand{\passthrough}[1]{#1}
+\lstset{defaultdialect=[5.3]Lua}
+\lstset{defaultdialect=[x86masm]Assembler}
+\lstset{basicstyle=\linespread{1}\ttfamily}
+% decrease spacing after figures
+\AtEndEnvironment{figure}{\vskip -12pt}
+
+\usepackage{graphicx}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=0pt}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}\setstretch{1.25}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Securities Tracking, Observation, and Computational Knowledge System:}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Documentation and Development Report}
+\author{Sean Gallagher}
+\date{}
+
+\usepackage[bottom]{footmisc}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning}
+\usepackage[font=small]{caption}
+\usepackage{mathtools}
+
+% Remove extra spacing under titles
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{0pt}{0pt}
+\titlespacing*{\subsection}{0pt}{0pt}{0pt}
+\titlespacing*{\subsubsection}{0pt}{0pt}{0pt}
+
+% afterpage lets us call commands at the end of the current page
+\usepackage{afterpage}
+
+\usepackage{titling}
+
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\setcounter{topnumber}{1}
+\setcounter{bottomnumber}{1}
+\setcounter{totalnumber}{2}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.7}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENT STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% ECMAScript 2015 (ES6) definition by Gary Hammock
+\lstdefinelanguage[ECMAScript2015]{JavaScript}[]{JavaScript}{
+  morekeywords=[1]{await, async, case, catch, class, const, default, do, enum,
+    export, extends, finally, from, implements, import, instanceof, let, static,
+    super, switch, throw, try}, morestring=[b]` % Interpolation strings.
+}
+% JavaScript version 1.1 by Gary Hammock
+\lstdefinelanguage{JavaScript}{
+  morekeywords=[1]{break, continue, delete, else, for, function, if, in, new,
+    return, this, typeof, var, void, while, with},
+  % Literals, primitive types, and reference types.
+  morekeywords=[2]{false, null, true, boolean, number, undefined, Array,
+    Boolean, Date, Math, Number, String, Object},
+  % Built-ins.
+  morekeywords=[3]{eval, parseInt, parseFloat, escape, unescape}, sensitive,
+  morecomment=[s]{/*}{*/}, morecomment=[l]//,
+  morecomment=[s]{/**}{*/}, % JavaDoc style comments
+  morestring=[b]', morestring=[b]"
+}[keywords, comments, strings]
+\lstalias[]{ES6}[ECMAScript2015]{Javascript}
+% Requires package: color.
+\definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
+\definecolor{mediumblue}{rgb}{0.0, 0.0, 0.8}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
+\lstdefinestyle{JSES6Base}{
+  backgroundcolor=\color{white}, breakatwhitespace=false, breaklines=false,
+  captionpos=b, columns=fullflexible, commentstyle=\color{mediumgray}\upshape,
+  emph={}, emphstyle=\color{crimson}, extendedchars=true,  % requires inputenc
+  fontadjust=true, frame=single, identifierstyle=\color{black}, keepspaces=true,
+  keywordstyle=\color{mediumblue}, keywordstyle={[2]\color{darkviolet}},
+  keywordstyle={[3]\color{royalblue}}, numbers=left, numbersep=5pt,
+  numberstyle=\tiny\color{black}, rulecolor=\color{black}, showlines=true,
+  showspaces=false, showstringspaces=false, showtabs=false,
+  stringstyle=\color{forestgreen}, tabsize=2, title=\lstname,
+  upquote=true  % requires textcomp
+}
+\lstdefinestyle{JavaScript}{language=JavaScript, style=JSES6Base}
+\lstdefinestyle{ES6}{language=ES6, style=JSES6Base}
+
+\pretitle{\begin{center}\large}
+  \posttitle{\end{center}}
+\preauthor{\begin{center}\small}
+  \postauthor{\\
+  \noindent CS-340: Client-Server Development\\
+  \noindent Southern New Hampshire University
+  \end{center}
+}
+\maketitle
+
+\setstretch{2}
+
+
+Professionals in the Financial Services sector must track and account for a
+milieu of statistics and data in the course of the daily conduct of business.
+Fortunately, computer systems present an opportunity to facilitate the
+acquisition and analysis of this knowledge in new and compelling ways. The
+Securities Tracking, Observation, and Computational Knowledge
+System\footnote{Yes, that's quite a mouthful. We know; we're working on it.} is
+one such system---one which aims to revolutionize the financial services sector.
+This report documents the system, its features and functions, and the interface
+it exposes to enable those ends. The system is built on Node.js in a modern
+Linux operating environment, familiar to both administrators and engineering
+teams. This allows developers to more flexibly move from back-end to front-end
+development and focus on creating powerful, responsive interfaces for their
+users.
+
+This documentation consists of two sections. The first covers administration of
+the system back end through the life cycle of included data. Following a
+discussion of database initialization and indexing, the report will cover the
+basic command line tools included with the product and their applications in
+manipulating and validating the data stored within the installed system. The
+second section details the Web Service API. This API---which is intended to be
+the primary interface for both daily use and administration of the
+system---includes endpoints for basic database manipulation and the two
+specified reporting interfaces. Each section includes detailed descriptions of
+operations involved in system administration, as well as screenshots
+illustrating operations and their results. Names of variables, options,
+executable scripts or programs, and short commands meant to be entered at a
+Linux or MongoDB shell prompt are set inline in
+\texttt{monospace}\footnote{Note that this document assumes that the
+\texttt{cs340-project/bin} directory is in the user's \texttt{\$PATH}, and omits
+`\texttt{./}' from any such commands.}. Long
+commands, especially those that extend across more than one line, will be set
+according to the following convention:
+
+\begin{lstlisting}
+  > command [optional value] <mandatory value>
+\end{lstlisting}
+
+\section{Installing, Initializing, and Administering the System}
+
+The Securities Tracking, Observation, and Computational Knowledge
+System\footnote{We really need a new name for this\ldots{}} is built on MongoDB,
+a document-oriented NoSQL database system, and Node.js, a server-side runtime
+for modern JavaScript based on Google's V8 JavaScript engine. It is designed and
+tested to run on modern Linux platforms---development and testing was done on
+Ubuntu 20.04 LTS, though any recent Linux distribution should suffice. As a full
+discussion of the pertinent concepts relating to each of these technologies
+could fill several textbooks, this document assumes the prospective
+administrator is familiar with installing and maintaining a Linux system;
+installing, configuring, and securing a MongoDB server instance; and basic usage
+of Node's \texttt{npm} package manager. Once these dependencies are met, issue
+the following command to download the system files:
+
+\begin{lstlisting}
+  > git clone --depth 1 https://github.com/seangllghr/cs340-project
+\end{lstlisting}
+
+\noindent As with any \texttt{git\ clone} operation, you can specify a custom
+installation directory at the end of the command. Once the files have been
+downloaded, enter the installation directory and run \texttt{npm\ install} to
+install the necessary Node dependencies
+
+\subsection{System Initialization and Configuration}
+
+Before the installed system can be used to generate insights into financial
+securities markets, it must be configured and populated with data. This process
+consists of three principal steps: (a) importing the data and configuring the
+application to access the database, and (b) indexing the database for
+performance.
+
+performance. Each of these steps plays a vital role in ensuring that the
+configured application suits the needs of the front-end development team and the
+system's target users.
+
+\subsubsection{Database creation and import}
+
+\begin{figure}[htbp]
+  \includegraphics[width=\textwidth]{build/img/import.png}
+  \caption{Importing data from a JSON file into the database and verifying
+    correct import from the MongoDB shell.}
+  \label{fig:import}
+\end{figure}
+
+Once the application is operational, data will be managed and manipulated using
+the Web Service API; however, the database should be populated during initial
+configuration using data stored in JSON file. While the specifics of the
+application will dictate the details of the schema, the included utilities and
+API expect each stock record to have the following fields:
+
+\begin{itemize}
+    \tightlist
+  \item \texttt{Ticker} (unique)
+  \item \texttt{Sector}
+  \item \texttt{Industry}
+  \item \texttt{Volume}
+  \item \texttt{50-Day\ Simple\ Moving\ Average}
+  \item \texttt{Analyst\ Recom}
+\end{itemize}
+
+Figure \ref{fig:import} depicts the process of importing seed data into the database
+instance using the \texttt{mongoimport} command. While the specific construction
+of the command will depend on the environment and configuration of the MongoDB
+server, the general form is:
+
+\begin{lstlisting}[language=sh]
+  mongoimport \
+  [--host=<host>] [--port=<port>] \
+  [authentication opts] \
+  [--db=<db>] [--collection=<collection>] \
+  <file>
+\end{lstlisting}
+
+\noindent Once the \texttt{mongoimport} tool has finished importing data from
+the JSON file, log into the MongoDB shell and issue a simple \texttt{findOne()}
+query to verify that the data has imported correctly, as illustrated in the
+figure. After verifying that the database has imported correctly, set the
+\texttt{dbName} and \texttt{colName} values in the the \texttt{config.json} file
+in the application's root directory to enable the application back end to access
+the database.
+
+\subsubsection{Index Design and Implementation}
+
+\begin{figure}[tp]
+  \includegraphics[width=\textwidth]{build/img/simple-index.png}
+  \caption{Creation of a simple ascending index on the \texttt{ticker} field.}
+  \label{fig:simple-index}
+\end{figure}
+
+Index design and implementation is, like the broader topic of general MongoDB
+administration, too vast to cover in this report. While the development team
+creating the specific queries requested for a given application will know best
+what indices will offer the greatest performance benefit for their application,
+some generalizations can be offered. As searching for a specific stock or
+security will likely be a staple of most analysts' workflows, a simple index on
+the \texttt{Ticker} field will benefit most applications. Creation of such an
+index is straightforward: after logging into the MongoDB shell and selecting the
+application database, issue the following command:
+
+\begin{lstlisting}[language=sh]
+  db.<collection>.createIndex({"Ticker": 1})
+\end{lstlisting}
+
+This command, illustrated in Figure \ref{fig:simple-index}, will create the
+simple index on the \texttt{Ticker} field.
+
+\begin{figure}[tbp]
+  \includegraphics[width=\textwidth]{build/img/compound-index.png}
+  \caption{Creation of a compound index on the \texttt{Industry} and
+    \texttt{Analyst Recom} fields will increase performance for the Industry
+    Report query.}
+  \label{fig:compound-index}
+\end{figure}
+
+In addition to simple indices, one or more compound indices may be necessary for
+optimal performance of a given application. A variety of considerations
+influence the order in which indexed fields appear in a compound index, and
+these factors are highly dependent on the queries required to generate reports
+used in a given implementation. To illustrate this, take the example Industry
+Report provided with this software. While a full description will be included in
+the API section of this document, the report, in brief, returns a list of the
+top 5 stocks in a user-supplied industry. A compound index across the
+\texttt{Industry} (ascending) and \texttt{Analyst Recom} (descending) fields
+(shown in Figure \ref{fig:compound-index}) will improve the performance of this report
+considerably.
+
+\subsection{Command Line Tools and Library Functions}
+
+The Securities Tracking, Obs---okay, you know what, just call it
+STOCKS\footnote{I'll see myself out}---ships with several tools for manipulating
+the database back end from the command line. These tools are not meant to be
+exhaustive replacements for the MongoDB shell; rather they aim to facilitate
+some common interactions and provide examples of how the utilities and scripts
+can harness the internal application architecture to enhance and automate
+aspects of the typical administrative workflow.
+
+\subsubsection{Library Functions}
+
+Two libraries of utility functions are provided with STOCKS. The first,
+\texttt{jsonUtils}, provides functions for loading and JSON stock and security
+data. While Node provides native functions for manipulating JSON data through
+the \texttt{JSON} object, the \texttt{jsonUtils} library provides
+abstractions for creating a string from a stream, parsing that stream into a
+native JavaScript object, and scanning for and replacing query terms, such as
+\texttt{\$oid} and \texttt{\$date} with their respective native JavaScript
+objects.
+
+The other library, \texttt{cli-utils}, provides two generalized prompt
+functions. Because Node.js relies heavily on asynchronous programming
+techniques, synchronous I/O akin to what is offered by other common server-side
+languages is quite a bit more complex in Node. STOCKS relies on an outside
+library to abstract away that complexity, and offers two straightforward prompt
+functions---\texttt{promptForString()} and \texttt{promptForNumber()}---that
+mimic traditional synchronous I/O for command line tools.
+
+\subsubsection{Aside: \texttt{stock-client.sh}, a Rudimentary API Front End}
+
+\begin{lstlisting}
+  Usage: stock-client delete [ticker]
+         stock-client industry-report [industry]
+         stock-client insert <JSON/YAML stock document>
+         stock-client read [ticker]
+         stock-client stock-report <JSON/YAML ticker list>
+         stock-client update <ticker> <JSON/YAML update document>
+\end{lstlisting}
+
+Take a look in the \texttt{bin} folder, and one file stands out as immediately
+different than the rest: \texttt{stock-client.sh}. This script, written in Bash
+and reliant on several Linux command line tools, started as a platform that the
+STOCKS development team used to test the STOCKS Web Service API. Over the course
+of this testing, \texttt{stock-client.sh} gradually expanded in scope, to the
+point where it is effectively a full-featured command line client for the STOCKS
+Web Service API. It provides this interface using an executable-command-operand
+syntax that should be familiar to most Linux users, summarized above.
+
+Aside from Bash, the client depends on a number of *nix command line tools to
+process input and server responses. At the client's core, \texttt{curl} is used
+to access the STOCKS Web Service API. The \texttt{read}, \texttt{delete}, and
+\texttt{industry-report} commands take input as a simple string, but the
+\texttt{insert}, \texttt{update}, and \texttt{stock-report} commands take input
+in the form of a stock record document, update document\footnote{Technically,
+\texttt{update} also takes a \texttt{Ticker} string, as well.}, and a list of
+\texttt{Ticker} symbols. Using a tool called \texttt{yq}, a command line YAML
+processor, the client is able to accept both JSON and YAML for these input
+documents. The client also uses \texttt{yq} to pretty-print (as human-friendly
+YAML) the output of commands that return JSON data. Additionally, the client
+filters the stock and industry reports using another tool called \texttt{jq} to
+present only the most relevant information to the user, and \texttt{less} is
+used for paging. Assuming these dependencies can be satisfied, the client
+\textit{should} run on any system with a Bash shell---such as Mac OS or Windows
+Subsystem for Linux---but the author has only tested it on Ubuntu 20.04.
+
+\begin{figure}[tbp]
+  \includegraphics[width=\textwidth]{build/img/sc-r-mongoshell-comp.png}
+  \caption{\texttt{stock-client read} offers a user-friendly, paged alternative
+    to manually verifying the following command-line utilities from the MongoDB
+    shell.}
+  \label{fig:sc-r-mongoshell-comp}
+\end{figure}
+
+The second section of this report goes into detail about the specific API
+endpoints and operations supported by the client; additional discussion in this
+section would be redundant. However, because the interface is straightforward,
+the output concise, and the client offers paged output by default for
+full-record read operations, the author recommends that administrators use
+\texttt{stock-client read} to verify correct functioning of the command line
+tools in this section. Figure \ref{fig:sc-r-mongoshell-comp} illustrates the
+difference between a Mongo Shell \texttt{find} operation and the
+\texttt{stock-client read} command---namely, that there is essentially no
+difference, except for the significant keystroke savings and quality of life
+improvements for users of the latter. Screenshots from \texttt{stock-client
+read} are used to verify the command line tools and API calls throughout this
+document, primarily for space-saving reasons.
+
+\subsubsection{Creating New Stock Records with \texttt{insert-stock}}
+
+\begin{lstlisting}
+  Usage: insert-stock.js [-f <json file>]
+\end{lstlisting}
+
+The \texttt{insert-stock} utility provides an interface for quickly inserting
+new stock and security records into the database from the command line. The tool
+allows the user to manually enter stock data line-by-line, terminating input
+with the End-of-Document (Ctrl-d) character, or accepts input piped from another
+command in the usual *nix way. Additionally, with the \texttt{-f} flag, the tool
+will read input from a file on disk. Whether input is passed from a file, pipe,
+or direct input, \texttt{insert-stock} expects to read data in standard JSON
+format. Like MongoDB, it will process \texttt{\$oid} and \texttt{\$date} fields
+into native Mongo/Javascript \texttt{ObjectID} and \texttt{Date} objects. Other
+fields may not parse correctly; however, it should be trivial to add rules for
+additional field types in the \texttt{convertMongoQueryFields} function in
+\texttt{jsonUtils.js}, discussed later.
+
+Internally, the utility wraps around \texttt{db.dataCreate}, which provides
+a simplified interface to the MongoDB driver \texttt{insertOne} and
+\texttt{insertMany} methods, automatically selecting the appropriate method
+for the document object passed as an argument.
+
+\begin{figure}[bp]
+  \includegraphics[width=\textwidth]{build/img/insert-stock.png}
+  \caption{Inserting a stock record from a JSON file with
+    \texttt{insert-stock}.}
+  \label{fig:insert-stock}
+\end{figure}
+
+\begin{figure}[tbp]
+  \includegraphics[width=\textwidth]{build/img/insert-stock-v.png}
+  \caption{Verifying that the stock QX inserted correctly.}
+  \label{fig:insert-stock-v}
+\end{figure}
+
+Figure \ref{fig:insert-stock} illustrates the utility being used to insert a new
+stock record\footnote{Which is definitely not just a copy of the record for
+China Zenix Auto International (ZX) with the first letter of its ticker symbol
+and first character of its ObjectID changed...} being inserted into the
+database, while Figure \ref{fig:insert-stock-v} confirms that the record has
+been inserted successfully.
+
+\subsubsection{Updating Trade Volumes with \texttt{update-volume}}
+
+\begin{lstlisting}
+  Usage: update-volume [-t <ticker>] [-v <volume>]
+\end{lstlisting}
+
+Where \texttt{insert-stock} has a broad purview, \texttt{update-volume} is a
+tightly-focused single-purpose tool. It wraps the \texttt{db.dataUpdate}
+function in a simple interface, prompting the user for a ticker symbol and
+updated value and updating the database accordingly. Because
+\texttt{db.dataUpdate} expects its input as a key-value object, the wrapper
+includes a bit of logic to transform the input---which can optionally be passed
+at command invocation with UNIX-style flags---into appropriate query and update
+documents.
+
+Figure \ref{fig:update-volume} depicts both the tool in operation and its
+verification by piping output from \texttt{stock-client read} through
+\texttt{grep} to focus on only the lines containing the stock's ticker symbol
+and volume data.
+
+\begin{figure}[tbp]
+  \includegraphics[width=\textwidth]{build/img/update-volume.png}
+  \caption{Using \texttt{update-volume} to update the \texttt{Volume} field on
+    our dummy stock, `QX'.}
+  \label{fig:update-volume}
+\end{figure}
+
+\pagebreak
+
+\subsubsection{Deleting Existing Stock Records with \texttt{delete-ticker}}
+
+\begin{lstlisting}
+  Usage: delete-ticker [-t <ticker>]
+\end{lstlisting}
+
+At this point, astute readers might be wondering, ``but now that I've added this
+worthless dummy stock record and changed one value, how do I remove it from the
+database so it doesn't pollute my analysts' reports?'' Fortunately, the
+\texttt{delete-ticker} utility gives administrators a simple, effective tool to
+do just that. The utility wraps around the \texttt{db.dataDelete} function,
+which it supplies with a query on the ticker symbol provided by the user. Like
+\texttt{update-volume}, \texttt{delete-ticker} can take input in the form of a
+command line flag, or it will prompt the user to enter a ticker symbol if one is
+not provided. Figure \ref{fig:delete-ticker} illustrates the use of
+\texttt{delete-ticker} without providing a ticker at the command line.
+
+\begin{figure}[tbp]
+  \includegraphics[width=\textwidth]{build/img/delete-ticker.png}
+  \caption{Deleting the `QX' stock record with \texttt{delete-ticker}. Again,
+    read output is piped for brevity. Note that this usage omits the command
+    line flag, opting to use the prompt for ticker entry, instead.}
+  \label{fig:delete-ticker}
+\end{figure}
+
+\subsubsection{\texttt{sma-spread}, a Demonstration of Find Queries}
+
+Read operations are the bread and butter of an analytical database system such
+as STOCKS. While administrators might spend more time with document insertion
+and manipulation, the bulk of the system's user base will inevitably be
+analysts, tasked with querying the compiled data and drawing conclusions about
+the appropriate direction to take the company and its clients in the days and
+weeks to come. In developing STOCKS, it became clear early on that no set of
+queries developed by the back end team could---or even should---fulfill all
+foreseeable needs encountered by the analysis team; instead, we provide
+examples, in the hopes of empowering the analysts to find their need and fill it.
+
+While most analysts will choose to leverage the tools made available by the
+front end team or work directly with the STOCKS Web Service API to construct
+these queries and gather this data, there remains a need for command line tools
+for analysis. To this end, \texttt{sma-spread} should be viewed not so much as a
+tool in itself, but rather as a blueprint of what a command line tool built on
+Node and the STOCKS libraries might look like. The \texttt{sma-spread} follows
+the pattern established in the tools presented earlier. It wraps a thin layer of
+logic around the \texttt{db.countMatching} function to transform user input into
+a query object that can be passed to the data access layer directly. In this
+case, that query object is a simple range query, using MongoDB's \texttt{\$gt}
+and \texttt{\$lt} conditionals to search for Simple Moving Average values within
+user-specified bounds. For brevity, this function only returns a count of
+matching values; however, it would be trivial to amend this to return a list of
+values using \texttt{db.dataRead}\footnote{At which point, the author hopes,
+they would be processed, and not just dumped to \texttt{stdout}.}.
+
+\begin{figure}[bp]
+  \includegraphics[width=\textwidth]{build/img/sma-spread.png}
+  \caption{The \texttt{sma-spread} tool in action.}
+  \label{fig:sma-spread}
+\end{figure}
+
+% \subsubsection{Generating a List of Ticker Symbols for a Given Industry}
+
+\end{document}

@@ -16,7 +16,7 @@ async function updateStockVolume (argv) {
     console.log(err)
     process.exit(1)
   }
-  let volume = -1
+  let volume = argv.v || -1
   try {
     while (volume < 0) {
       volume = promptForNumber('Volume:')
