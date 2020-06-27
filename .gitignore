@@ -108,3 +108,7 @@ docs/**/build
 docs/**/tex2pdf*
 docs/**/.auctex-auto
 docs/**/Sean_Gallagher*
+docs/**/_region_.tex
+docs/**/*.aux
+docs/**/*.fdb_latexmk
+docs/**/*.fls

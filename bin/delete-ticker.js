@@ -7,7 +7,7 @@ const db = require('../db')
 async function deleteStockByTicker (argv) {
   let ticker
   try {
-    ticker = await promptForString(argv)
+    ticker = await promptForString('Ticker: ')
   } catch (err) {
     console.log(err)
     process.exit(1)
