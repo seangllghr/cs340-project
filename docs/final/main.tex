@@ -40,7 +40,14 @@ titlepage,
 \newcommand{\passthrough}[1]{#1}
 \lstset{defaultdialect=[5.3]Lua}
 \lstset{defaultdialect=[x86masm]Assembler}
-\lstset{basicstyle=\linespread{1}\ttfamily}
+\definecolor{lightgray}{rgb}{0.9, 0.9, 0.9}
+\definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
+\lstset{
+  backgroundcolor=\color{lightgray},
+  basicstyle=\linespread{1}\ttfamily,
+  fillcolor=\color{mediumgray},
+  frame=leftline
+}
 % decrease spacing after figures
 \AtEndEnvironment{figure}{\vskip -12pt}
 
@@ -115,7 +122,6 @@ titlepage,
 }[keywords, comments, strings]
 \lstalias[]{ES6}[ECMAScript2015]{Javascript}
 % Requires package: color.
-\definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
 \definecolor{mediumblue}{rgb}{0.0, 0.0, 0.8}
 \definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
 \definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
@@ -376,8 +382,13 @@ YAML) the output of commands that return JSON data. Additionally, the client
 filters the stock and industry reports using another tool called \texttt{jq} to
 present only the most relevant information to the user, and \texttt{less} is
 used for paging. Assuming these dependencies can be satisfied, the client
-\textit{should} run on any system with a Bash shell---such as Mac OS or Windows
-Subsystem for Linux---but the author has only tested it on Ubuntu 20.04.
+\textit{should} run on any system with a Bash shell. The client has been tested
+successfully on bare-metal Ubuntu 20.04 and Windows Subsystem for Linux 2 (also
+running Ubuntu 20.04). The client is written to interface with a STOCKS server
+running on \texttt{localhost} by default. There is currently no run-time option
+or configuration file to specify a server; however, the single variable
+\texttt{hostname} can be set within the script itself to allow
+\texttt{stock-client} to access a remote STOCKS server.
 
 \begin{figure}[tbp]
   \includegraphics[width=\textwidth]{build/img/sc-r-mongoshell-comp.png}
@@ -472,8 +483,6 @@ and volume data.
   \label{fig:update-volume}
 \end{figure}
 
-\pagebreak
-
 \subsubsection{Deleting Existing Stock Records with \texttt{delete-ticker}}
 
 \begin{lstlisting}
@@ -501,6 +510,10 @@ not provided. Figure \ref{fig:delete-ticker} illustrates the use of
 
 \subsubsection{\texttt{sma-spread}, a Demonstration of Find Queries}
 
+\begin{lstlisting}
+  Usage: sma-spread.js [-l <low value>] [-h <high value>]
+\end{lstlisting}
+
 Read operations are the bread and butter of an analytical database system such
 as STOCKS. While administrators might spend more time with document insertion
 and manipulation, the bulk of the system's user base will inevitably be
@@ -510,6 +523,12 @@ weeks to come. In developing STOCKS, it became clear early on that no set of
 queries developed by the back end team could---or even should---fulfill all
 foreseeable needs encountered by the analysis team; instead, we provide
 examples, in the hopes of empowering the analysts to find their need and fill it.
+
+\begin{figure}[bp]
+  \includegraphics[width=\textwidth]{build/img/sma-spread.png}
+  \caption{The \texttt{sma-spread} tool in action.}
+  \label{fig:sma-spread}
+\end{figure}
 
 While most analysts will choose to leverage the tools made available by the
 front end team or work directly with the STOCKS Web Service API to construct
@@ -527,12 +546,172 @@ matching values; however, it would be trivial to amend this to return a list of
 values using \texttt{db.dataRead}\footnote{At which point, the author hopes,
 they would be processed, and not just dumped to \texttt{stdout}.}.
 
+\subsubsection{Generating a List of Ticker Symbols for a Given Industry}
+
+\begin{lstlisting}
+  Usage: tickers-by-industry [-i <industry>]
+\end{lstlisting}
+
+As with any tool built on a powerful, feature-rich back end like MongoDB, it
+would be impossible to expose all of the low-level functionality of the Node
+MongoDB driver in the STOCKS command line tools or Web Service API. Writing
+tools in such a framework would hardly be better than developing with the
+MongoDB driver API directly. However, in abstracting away the complexities of
+connecting to and manipulating the MongoDB database, some functionality
+inevitably falls by the wayside.
+
 \begin{figure}[bp]
-  \includegraphics[width=\textwidth]{build/img/sma-spread.png}
-  \caption{The \texttt{sma-spread} tool in action.}
-  \label{fig:sma-spread}
+  \includegraphics[width=\textwidth]{build/img/tickers-by-industry.png}
+  \caption{The \texttt{tickers-by-industry} utility in action.}
+  \label{fig:tickers-by-industry}
 \end{figure}
 
-% \subsubsection{Generating a List of Ticker Symbols for a Given Industry}
+The \texttt{tickers-by-industry} utility is a perfect example of this sort of
+compromise. In the interest of simplifying the method signature for
+\texttt{db.dataRead}, we chose to omit the option to limit what fields the query
+returns. As a result, logic to limit the returned results from
+\texttt{tickers-by-industry} relies on a simple JavaScript loop to print only
+the stock ticker symbols to the console. This sort of client-side workaround
+isn't ideal, as there is a performance cost incurred as the script iterates over
+the returned array, but that cost is often negligible. Figure
+\ref{fig:tickers-by-industry} illustrates the \texttt{tickers-by-industry}
+utility retrieving a ticker list for the industry matching the most results,
+showing a total execution time of just under a second on the author's decade-old
+workstation. While there are certainly cases where client-side
+processing would place undue burden on the client, or where server-side
+processing can leverage significantly more performant technologies, the cost
+often does not justify the added complexity in back end code.
+
+\subsubsection{Generating a List of Outstanding Shares by Industry}
+
+\begin{lstlisting}
+  Usage: agg-shares.js [-s <sector>]
+\end{lstlisting}
+
+The \texttt{agg-shares} utility follows a similar pattern to the other
+string-fed\footnote{Not to be confused with grain-fed. We raise our command line
+utilities using traditional techniques, feeding them a healthy diet of caffeine
+and suffering like civilized programmers.} tools presented above. It takes input
+from a user prompt or, optionally, a command line argument. In this case,
+\texttt{agg-shares} asks for a sector, and returns a sorted list of industries
+in that sector, along with the total number of shares outstanding in the
+industry. This utility illustrates, to a small extent, what can be done with
+MongoDB's aggregation framework, one of its most powerful features. Because the
+STOCKS application's data access layer function \texttt{db.dataAggregate}
+accepts MongoDB aggregation pipeline arrays directly, any operation that can be
+conducted as part of an aggregation pipeline can be executed through the STOCKS
+aggregation functionality.
+
+\begin{figure}[bp]
+  \includegraphics[width=\textwidth]{build/img/agg-shares.png}
+  \caption{\texttt{agg-shares} operating on the ``Utilities'' industry (chosen
+    for brevity).}
+  \label{fig:agg-shares}
+\end{figure}
+
+While a full discussion of MongoDB's aggregation framework is well outside the
+scope of this document, a brief overview of the functions utilized in
+\texttt{agg-shares} is both reasonable and warranted. Three aggregation stages
+are used in this pipeline: (a) a \texttt{\$match} stage matching records
+with the \texttt{Sector} field value specified; (b) a \texttt{\$group} stage,
+which collects records into groups by industry and sums their outstanding
+shares; and (c) a \texttt{\$sort} stage, which is responsible for ordering the
+results in descending order by total shares outstanding. This pipeline is passed
+directly to the \texttt{db.dataAggregate} function, which returns the results.
+Additional processing occurs on the client side; the utility uses a JavaScript
+implementation of C's \texttt{printf} function to format each result before
+printing it to screen in nice, neat, orderly columns\footnote{It's worth noting
+  that \texttt{agg-shares} breaks when included in a UNIX pipe. I'm not really
+  sure why this is---it throws a Node error and complains about writing to a
+  pipe, but I'm not entirely sure what's going wrong.}. Figure
+\ref{fig:agg-shares} illustrates the tool in operation on the ``Utilities''
+sector.
+
+\section{The STOCKS Web Service API}
+
+While the command line utilities in the first section offer insight into how
+STOCKS works under the hood, the meat of the application is dedicated to
+providing the STOCKS Web Service API. The Web Service API is built on a layered
+architecture model centered on a separation of concerns. The core of this
+architecture is the Data Access layer, described in part in the first section,
+which wraps around the MongoDB driver methods. Above the Data Access layer, a
+Services layer contains business logic that processes input data before passing
+it to Data Access functions and output data to be returned to the route's
+Controller. This Controller contains logic associated with the particular web
+service framework---in this case, the venerable Express framework. At the most
+abstract, the Routing layer takes incoming requests and passes them to the
+appropriate controller for processing.
+
+This architecture is ideal both for a rapidly-growing startup and the fluid
+ecosystem of Node.js. By writing business logic in simple, standard JavaScript,
+developers can focus on the logic itself, rather than the vagaries of Express.
+Conversely, when the tides shift and Express inevitably falls out of favor,
+developers need only focus on transitioning the routing and request handling
+logic to whatever new, shiny tech is in vogue. This approach does add some
+complexity---not counting the command line utilities, the resulting codebase is
+spread across a dozen files---but the scalability and sustainability of this
+approach are worth the cost.
+
+Contrary to the breakdown above, this section breaks the API down into its six
+endpoints, four for the basic CRUD operations fundamental to any database
+system, along with two examples of more complex read operations. These endpoints
+are far from comprehensive; like the command line tools, the API presented aims
+to provide a minimal level of pre-built functionality which can serve as a
+framework and inspiration for more complex workflows.
+
+\subsection{A Brief Return to \texttt{stock-client.sh}}
+
+Because the \texttt{stock-client} script is arguably the most distilled form of
+a client designed to access the STOCKS Web Service API---and because it is
+written in Bash, not JavaScript---it seems appropriate to revisit it in this
+section as an example of the versatility of the API. While the client is by no
+means a complete illustration of what could be done with a dedicated front end
+solution, it effectively demonstrates the power of the REST model. As API
+requests are passed in JSON, rather than as proprietary binary data or native
+language constructs, the client accessing the REST resources is not constrained
+to any one language, architecture, or methodology. While it is a simple tool,
+the \texttt{stock-client} script is eminently usable: it offers a concise
+command syntax; offers readable, paged output; and allows the user to manipulate
+data once it has been retrieved. That usability and power is, of course,
+predicated on a familiarity with UNIX tools and concepts. However, a software
+application \textit{should} tailor itself to its target user. A client for
+non-technical users could just as easily offer all of the graphical bells and
+whistles that those users expect while still harnessing the same API.
+
+\subsection{Basic CRUD Operations}
+
+The core of the STOCKS Web Service API are the four CRUD operations. These four
+functions form the building blocks on which nearly all of the application's
+functionality builds. While they do not expose all of the features of the
+underlying layers, the simplicity of their interface makes them powerful in
+their own right.
+
+\subsubsection{\texttt{createStock}}
+
+\begin{lstlisting}
+  URI:    http://<hostname>:<port>/api/v1.0/createStock/<ticker>
+  Method: POST
+\end{lstlisting}
+
+Before data can be analyzed or modified, it must first be created. The create
+endpoint empowers users to create these stock records, and is intended to be
+used primarily in an administrative capacity. A \texttt{createStock} request
+takes the form of a POST request directed at the \texttt{createStock/<ticker>}
+URI. This variable URI field, called a \textit{parameter}, indicates to the
+system the stock ticker symbol of the record to be created, while the body of
+the request is a JSON stock record document. Provision of the ticker symbol in
+the URI provides a modicum of validation; if the ticker in the request body does
+not match the URI parameter, the request is rejected.
+
+Once this validation is performed, the controller calls
+\texttt{services.stocks.createStockService}, which converts any MongoDB query
+fields, such as \texttt{\$oid} or \texttt{\$date}, into native JavaScript
+objects of the appropriate type. It then validates that the stock record does
+not already exist in the database. Assuming the record is unique, the service
+calls the data access function \texttt{db.dataCreate} to insert the stock record
+document into the database. The ultimate success of the insert---or its failure
+at any stage---is returned to the controller, which responds to the original
+request with code 201 for a successful insert, 400 if the ticker already exists
+in the database, or 500 if the server encounters another error.
 
 \end{document}
