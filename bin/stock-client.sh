@@ -10,7 +10,7 @@ deletestock () {
     else
         read -rp 'Ticker: ' ticker
     fi
-    curl -X DELETE "http://localhost:3000/api/v1.0/deleteStock/$ticker" -s
+    curl -X DELETE "http://$hostname:3000/api/v1.0/deleteStock/$ticker" -s
     echo ""
 }
 
@@ -24,7 +24,7 @@ Price: .Price,
 "Analyst Recom": ."Analyst Recom"
 }]'
     industry=$(uriencode "$1")
-    curl -s "http://localhost:3000/api/v1.0/industryReport/$industry" |
+    curl -s "http://$hostname:3000/api/v1.0/industryReport/$industry" |
         jq -cr "$jqfilter" |
         yq read --prettyPrint --colors -
 }
@@ -33,7 +33,7 @@ insertstock () {
     loadjson "$1"
     ticker=$(echo "$inputjson" | jq -cr '.Ticker')
     curl -H "Content-Type: application/json" -X POST -d "$inputjson" -s \
-        "http://localhost:3000/api/v1.0/createStock/$ticker"
+        "http://$hostname:3000/api/v1.0/createStock/$ticker"
 }
 
 loadjson () {
@@ -63,7 +63,7 @@ Usage: stock-client delete [ticker]
 
 readstock () {
     ticker=$(echo "$1" | tr '[:lower:]' '[:upper:]')
-    curl "http://localhost:3000/api/v1.0/readStock/$ticker" -s |
+    curl "http://$hostname:3000/api/v1.0/readStock/$ticker" -s |
         yq read --prettyPrint --colors - |
         less
 }
@@ -79,7 +79,7 @@ Price: .Price
     loadjson "$1"
     echo "Running stock report on $inputjson"
     curl -H "Content-Type: application/json" -X POST -d "$inputjson" -s \
-        'http://localhost:3000/api/v1.0/stockReport' |
+        'http://$hostname:3000/api/v1.0/stockReport' |
         jq -cr "$jqfilter" |
         yq read --prettyPrint --colors -
 }
@@ -88,7 +88,7 @@ updatestock () {
     ticker=$(echo "$1" | tr '[:lower:]' '[:upper:]')
     loadjson "$2"
     curl -H "Content-Type: application/json" -X PUT -d "$inputjson" -s \
-        "http://localhost:3000/api/v1.0/updateStock/$ticker"
+        "http://$hostname:3000/api/v1.0/updateStock/$ticker"
     echo ""
 }
 
