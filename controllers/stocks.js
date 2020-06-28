@@ -25,9 +25,13 @@ async function createController (req, res) {
     return
   }
   try {
-    await services.stocks.createStockService(req.body)
-    res.status(201)
-    res.send('Record created successfully')
+    if (await services.stocks.createStockService(req.body)) {
+      res.status(201)
+      res.send('Record created successfully')
+    } else {
+      res.status(400)
+      res.send('Ticker already exists')
+    }
   } catch (err) {
     res.sendStatus(500)
   }
