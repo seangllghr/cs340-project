@@ -34,19 +34,38 @@ titlepage,
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
-\usepackage[margin=1in]{geometry}
+\usepackage[hmargin=1in,vmargin=0.9in]{geometry}
 \usepackage{etoolbox}
 \usepackage{listings}
 \newcommand{\passthrough}[1]{#1}
 \lstset{defaultdialect=[5.3]Lua}
 \lstset{defaultdialect=[x86masm]Assembler}
+% Requires package: color.
+\definecolor{mediumblue}{rgb}{0.0, 0.0, 0.8}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
 \definecolor{lightgray}{rgb}{0.9, 0.9, 0.9}
 \definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
 \lstset{
   backgroundcolor=\color{lightgray},
   basicstyle=\linespread{1}\ttfamily,
+  commentstyle=\color{mediumgray}\upshape,
   fillcolor=\color{mediumgray},
-  frame=leftline
+  frame=leftline,
+  identifierstyle=\color{black},
+  keywordstyle=\color{mediumblue},
+  keywordstyle={[2]\color{darkviolet}},
+  keywordstyle={[3]\color{royalblue}},
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showlines=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stringstyle=\color{forestgreen},
+  upquote=true  % requires textcomp
 }
 % decrease spacing after figures
 \AtEndEnvironment{figure}{\vskip -12pt}
@@ -96,6 +115,10 @@ titlepage,
 \renewcommand{\textfraction}{0.07}
 \renewcommand{\floatpagefraction}{0.7}
 
+% Bully the widow and orphan settings
+\clubpenalty=10000
+\widowpenalty=10000
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DOCUMENT STARTS HERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -121,22 +144,33 @@ titlepage,
   morestring=[b]', morestring=[b]"
 }[keywords, comments, strings]
 \lstalias[]{ES6}[ECMAScript2015]{Javascript}
-% Requires package: color.
-\definecolor{mediumblue}{rgb}{0.0, 0.0, 0.8}
-\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
-\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
-\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
-\definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
 \lstdefinestyle{JSES6Base}{
-  backgroundcolor=\color{white}, breakatwhitespace=false, breaklines=false,
-  captionpos=b, columns=fullflexible, commentstyle=\color{mediumgray}\upshape,
-  emph={}, emphstyle=\color{crimson}, extendedchars=true,  % requires inputenc
-  fontadjust=true, frame=single, identifierstyle=\color{black}, keepspaces=true,
-  keywordstyle=\color{mediumblue}, keywordstyle={[2]\color{darkviolet}},
-  keywordstyle={[3]\color{royalblue}}, numbers=left, numbersep=5pt,
-  numberstyle=\tiny\color{black}, rulecolor=\color{black}, showlines=true,
-  showspaces=false, showstringspaces=false, showtabs=false,
-  stringstyle=\color{forestgreen}, tabsize=2, title=\lstname,
+  backgroundcolor=\color{lightgray},
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  columns=fullflexible,
+  commentstyle=\color{mediumgray}\upshape,
+  emph={},
+  emphstyle=\color{crimson},
+  extendedchars=true,  % requires inputenc
+  fontadjust=true,
+  frame=leftline,
+  identifierstyle=\color{black},
+  keepspaces=true,
+  keywordstyle=\color{mediumblue},
+  keywordstyle={[2]\color{darkviolet}},
+  keywordstyle={[3]\color{royalblue}},
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showlines=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stringstyle=\color{forestgreen},
+  tabsize=2,
   upquote=true  % requires textcomp
 }
 \lstdefinestyle{JavaScript}{language=JavaScript, style=JSES6Base}
@@ -165,7 +199,7 @@ one such system---one which aims to revolutionize the financial services sector.
 This report documents the system, its features and functions, and the interface
 it exposes to enable those ends. The system is built on Node.js in a modern
 Linux operating environment, familiar to both administrators and engineering
-teams. This allows developers to more flexibly move from back-end to front-end
+teams. This allows developers to more flexibly move from back end to front end
 development and focus on creating powerful, responsive interfaces for their
 users.
 
@@ -207,7 +241,7 @@ installing, configuring, and securing a MongoDB server instance; and basic usage
 of Node's \texttt{npm} package manager. Once these dependencies are met, issue
 the following command to download the system files:
 
-\begin{lstlisting}
+\begin{lstlisting}[language=bash]
   > git clone --depth 1 https://github.com/seangllghr/cs340-project
 \end{lstlisting}
 
@@ -222,8 +256,6 @@ Before the installed system can be used to generate insights into financial
 securities markets, it must be configured and populated with data. This process
 consists of three principal steps: (a) importing the data and configuring the
 application to access the database, and (b) indexing the database for
-performance.
-
 performance. Each of these steps plays a vital role in ensuring that the
 configured application suits the needs of the front-end development team and the
 system's target users.
@@ -258,7 +290,7 @@ instance using the \texttt{mongoimport} command. While the specific construction
 of the command will depend on the environment and configuration of the MongoDB
 server, the general form is:
 
-\begin{lstlisting}[language=sh]
+\begin{lstlisting}[language=bash]
   mongoimport \
   [--host=<host>] [--port=<port>] \
   [authentication opts] \
@@ -290,14 +322,12 @@ some generalizations can be offered. As searching for a specific stock or
 security will likely be a staple of most analysts' workflows, a simple index on
 the \texttt{Ticker} field will benefit most applications. Creation of such an
 index is straightforward: after logging into the MongoDB shell and selecting the
-application database, issue the following command:
+application database, issue the following command (illustrated in Figure
+\ref{fig:simple-index}:
 
-\begin{lstlisting}[language=sh]
+\begin{lstlisting}[style=ES6]
   db.<collection>.createIndex({"Ticker": 1})
 \end{lstlisting}
-
-This command, illustrated in Figure \ref{fig:simple-index}, will create the
-simple index on the \texttt{Ticker} field.
 
 \begin{figure}[tbp]
   \includegraphics[width=\textwidth]{build/img/compound-index.png}
@@ -359,6 +389,14 @@ mimic traditional synchronous I/O for command line tools.
          stock-client update <ticker> <JSON/YAML update document>
 \end{lstlisting}
 
+\begin{figure}[tbp]
+  \includegraphics[width=\textwidth]{build/img/sc-r-mongoshell-comp.png}
+  \caption{\texttt{stock-client read} offers a user-friendly, paged alternative
+    to manually verifying the following command-line utilities from the MongoDB
+    shell.}
+  \label{fig:sc-r-mongoshell-comp}
+\end{figure}
+
 Take a look in the \texttt{bin} folder, and one file stands out as immediately
 different than the rest: \texttt{stock-client.sh}. This script, written in Bash
 and reliant on several Linux command line tools, started as a platform that the
@@ -390,14 +428,6 @@ or configuration file to specify a server; however, the single variable
 \texttt{hostname} can be set within the script itself to allow
 \texttt{stock-client} to access a remote STOCKS server.
 
-\begin{figure}[tbp]
-  \includegraphics[width=\textwidth]{build/img/sc-r-mongoshell-comp.png}
-  \caption{\texttt{stock-client read} offers a user-friendly, paged alternative
-    to manually verifying the following command-line utilities from the MongoDB
-    shell.}
-  \label{fig:sc-r-mongoshell-comp}
-\end{figure}
-
 The second section of this report goes into detail about the specific API
 endpoints and operations supported by the client; additional discussion in this
 section would be redundant. However, because the interface is straightforward,
@@ -418,6 +448,13 @@ document, primarily for space-saving reasons.
   Usage: insert-stock.js [-f <json file>]
 \end{lstlisting}
 
+\begin{figure}[tp]
+  \includegraphics[width=\textwidth]{build/img/insert-stock.png}
+  \caption{Inserting a stock record from a JSON file with
+    \texttt{insert-stock}.}
+  \label{fig:insert-stock}
+\end{figure}
+
 The \texttt{insert-stock} utility provides an interface for quickly inserting
 new stock and security records into the database from the command line. The tool
 allows the user to manually enter stock data line-by-line, terminating input
@@ -437,13 +474,6 @@ a simplified interface to the MongoDB driver \texttt{insertOne} and
 for the document object passed as an argument.
 
 \begin{figure}[bp]
-  \includegraphics[width=\textwidth]{build/img/insert-stock.png}
-  \caption{Inserting a stock record from a JSON file with
-    \texttt{insert-stock}.}
-  \label{fig:insert-stock}
-\end{figure}
-
-\begin{figure}[tbp]
   \includegraphics[width=\textwidth]{build/img/insert-stock-v.png}
   \caption{Verifying that the stock QX inserted correctly.}
   \label{fig:insert-stock-v}
@@ -520,7 +550,7 @@ and manipulation, the bulk of the system's user base will inevitably be
 analysts, tasked with querying the compiled data and drawing conclusions about
 the appropriate direction to take the company and its clients in the days and
 weeks to come. In developing STOCKS, it became clear early on that no set of
-queries developed by the back end team could---or even should---fulfill all
+queries developed by the back-end team could---or even should---fulfill all
 foreseeable needs encountered by the analysis team; instead, we provide
 examples, in the hopes of empowering the analysts to find their need and fill it.
 
@@ -531,7 +561,7 @@ examples, in the hopes of empowering the analysts to find their need and fill it
 \end{figure}
 
 While most analysts will choose to leverage the tools made available by the
-front end team or work directly with the STOCKS Web Service API to construct
+front-end team or work directly with the STOCKS Web Service API to construct
 these queries and gather this data, there remains a need for command line tools
 for analysis. To this end, \texttt{sma-spread} should be viewed not so much as a
 tool in itself, but rather as a blueprint of what a command line tool built on
@@ -580,7 +610,7 @@ showing a total execution time of just under a second on the author's decade-old
 workstation. While there are certainly cases where client-side
 processing would place undue burden on the client, or where server-side
 processing can leverage significantly more performant technologies, the cost
-often does not justify the added complexity in back end code.
+often does not justify the added complexity in back-end code.
 
 \subsubsection{Generating a List of Outstanding Shares by Industry}
 
@@ -602,7 +632,7 @@ accepts MongoDB aggregation pipeline arrays directly, any operation that can be
 conducted as part of an aggregation pipeline can be executed through the STOCKS
 aggregation functionality.
 
-\begin{figure}[bp]
+\begin{figure}[tp]
   \includegraphics[width=\textwidth]{build/img/agg-shares.png}
   \caption{\texttt{agg-shares} operating on the ``Utilities'' industry (chosen
     for brevity).}
@@ -665,7 +695,7 @@ Because the \texttt{stock-client} script is arguably the most distilled form of
 a client designed to access the STOCKS Web Service API---and because it is
 written in Bash, not JavaScript---it seems appropriate to revisit it in this
 section as an example of the versatility of the API. While the client is by no
-means a complete illustration of what could be done with a dedicated front end
+means a complete illustration of what could be done with a dedicated front-end
 solution, it effectively demonstrates the power of the REST model. As API
 requests are passed in JSON, rather than as proprietary binary data or native
 language constructs, the client accessing the REST resources is not constrained
@@ -680,11 +710,10 @@ whistles that those users expect while still harnessing the same API.
 
 \subsection{Basic CRUD Operations}
 
-The core of the STOCKS Web Service API are the four CRUD operations. These four
-functions form the building blocks on which nearly all of the application's
-functionality builds. While they do not expose all of the features of the
-underlying layers, the simplicity of their interface makes them powerful in
-their own right.
+At the core of the STOCKS Web Service API are the four CRUD operations. These
+four functions form the building blocks that front-end developers can use to
+build their interfaces. While they do not expose all of the features of the
+underlying layers, their simplicity makes them powerful in their own right.
 
 \subsubsection{\texttt{createStock}}
 
@@ -713,5 +742,242 @@ document into the database. The ultimate success of the insert---or its failure
 at any stage---is returned to the controller, which responds to the original
 request with code 201 for a successful insert, 400 if the ticker already exists
 in the database, or 500 if the server encounters another error.
+
+\begin{figure}[tp]
+  \includegraphics[width=\textwidth]{build/img/createStock.png}
+  \caption{Successful insertion of `QX', a bald-faced copy of the stock record
+    for China Zenix Auto International Ltd., with filtered \texttt{readStock}
+    output for verification.}
+  \label{fig:createStock}
+\end{figure}
+
+The \texttt{stock-client} front end simplifies usage of the
+\texttt{createStock} endpoint by assembling an appropriate \texttt{curl} command
+from the JSON data passed by the user. Figure
+\ref{fig:createStock} shows the utility making a \texttt{createStock} request
+with the command:
+
+\begin{lstlisting}[language=bash]
+  curl -H "Content-Type: application/json" \
+        -X POST -d "$inputjson" -s \
+        "http://$hostname:3000/api/v1.0/createStock/$ticker"
+\end{lstlisting}
+
+\subsubsection{\texttt{readStock}}
+
+\begin{lstlisting}
+  URI:    http://<hostname>:<port>/api/v1.0/readStock/<ticker>
+  Method: GET
+\end{lstlisting}
+
+The \texttt{readStock} API endpoint provides a significant amount of
+functionality to the end user and front-end developer. Because it returns highly
+detailed data about a single stock record, it can be used in a targeted query
+against a single record, or to collect information about several different
+records using client-side language features, akin to the strategy used by the
+\texttt{tickers-by-industry} command line tool demonstrated in the first
+section. While more complex queries or searches looking for detailed data on
+long lists of individual stocks might be better served with a single-request API
+endpoint utilizing aggregation or complex \texttt{find} functionality, the
+increase in query performance may not justify the increased development effort
+in many cases. That being said, the sections on the advanced query endpoints
+\texttt{tickerList} and \texttt{industryReport} illustrate the ease with which
+new API endpoints can be added, if necessary.
+
+Requests to \texttt{readStock} take the form of an HTTP GET request; the query
+variable, \texttt{Ticker}, is passed through a URI parameter in the final
+position. This request is routed to \texttt{stocks.readStockController},
+which extracts the parameter object---which shares the same structure as the
+desired MongoDB query document---and passes it to the basic read service.
+This service calls the data access layer directly, and returns the resulting
+array to the controller. If the array is empty, the controller sends an HTTP 404
+response, indicating that the item does not appear in the records\footnote{And,
+  therefore, does not exist.}. Otherwise, the controller responds with the data
+as a JSON string.
+
+The \texttt{readStock} API endpoint has been demonstrated throughout this
+document, as the \texttt{stock-client} script implements calls to the API in its
+\texttt{read} interface. The \texttt{curl} command used by the client is:
+
+\begin{lstlisting}
+  curl "http://$hostname:3000/api/v1.0/readStock/$ticker" -s
+\end{lstlisting}
+
+\subsubsection{updateStock}
+
+\begin{lstlisting}
+  URI: http://<hostname>:<port>/api/v1.0/updateStock/<ticker>
+  Method: PUT
+\end{lstlisting}
+
+Updating stock records with the Web Service API works similarly to other basic
+CRUD operations. The URI follows the same structure, with calls to
+\texttt{updateStock} followed by a single positional parameter indicating the
+target stock ticker. Like requests to \texttt{createStock},
+\texttt{updateStock} takes additional JSON data in the request body; however,
+unlike \texttt{createStock} requests, this data need not contain a matching
+ticker symbol. In fact, the JSON request body should contain only the fields
+the user wants to update, with their new values. Processing of this document
+into a MongoDB \texttt{\$set} query is handled by the STOCKS application.
+
+After the incoming request is routed to the \texttt{stocks.readController}, the
+controller verifies that the record exists, then extracts URI parameter object
+and the request body. These objects are passed to the update service as the
+\texttt{query} and \texttt{update} parameters, respectively. The query object is
+already in the correct form to send to the data access layer, but the service
+sets the \texttt{update} parameter as the value in a MongoDB \texttt{\$set}
+key-value pair before it is passed to \texttt{db.dataUpdate}. Assuming the
+update completes successfully, the service returns the result to the controller.
+If the \texttt{result} object indicates that no records were updated---such as
+would be the case if the fields to be updated already contained the values
+requested---the server responds with a message indicating that the record was
+not modified; otherwise, the message indicates that the update was successful.
+In both cases, the response code sent to the client is 200, indicating that the
+value(s) of the specified fields match those requested.
+
+The \texttt{updateStock} endpoint is accessed by \texttt{stock-client} using the
+\texttt{curl} command below, and is illustrated in operation in Figure
+\ref{fig:updateStock}.
+
+\begin{lstlisting}
+  curl -H "Content-Type: application/json" \
+       -X PUT -d "$inputjson" -s \
+       "http://$hostname:3000/api/v1.0/updateStock/$ticker"
+\end{lstlisting}
+
+\begin{figure}[tp]
+  \includegraphics[width=\textwidth]{build/img/updateStock.png}
+  \caption{\texttt{stock-client} demonstrating successful execution of a call to
+    the \texttt{updateStock} endpoint (and YAML document input, but that's not
+    the point).}
+  \label{fig:updateStock}
+\end{figure}
+
+\subsubsection{\texttt{deleteStock}}
+
+\begin{lstlisting}
+  URI:    http://<hostname>:<port>/api/v1.0/deleteStock/<ticker>
+  Method: DELETE
+\end{lstlisting}
+
+\begin{figure}[bp]
+  \includegraphics[width=\textwidth]{build/img/deleteStock.png}
+  \caption{A call to the \texttt{deleteStock} endpoint successfully deleting a stock
+    record from the database.}
+  \label{fig:deleteStock}
+\end{figure}
+
+Like the other CRUD operations, the API endpoint is accessed through an HTTP
+request with a \texttt{Ticker} parameter in the final position. In this case,
+the request is made as a DELETE request, which takes no additional data. This
+request is routed to \texttt{stocks.deleteStockController}, which extracts the
+parameter object and passes it to the delete service. This service is a thin
+wrapper around the \texttt{db.dataDelete} function. Once the data access layer
+returns a MongoDB result object, this result is passed to the controller; on a
+successful deletion, the server responds to the client with an HTTP 200 response
+indicating the record was successfully deleted. If the record was not found, it
+returns code 404.
+
+The \texttt{curl} command for this request is essentially identical to that
+passed to \texttt{readStock}, with the addition of a \texttt{-X DELETE} flag
+indicating the request type. Its execution is illustrated in Figure
+\ref{fig:deleteStock}.
+
+\subsection{Advanced Reporting}
+
+MongoDB is an incredibly powerful database system, and it offers features which
+can greatly simplify and enhance complex reporting use cases. It would be
+impossible to cover all possible reports that a particular customer might desire
+for even an application as simple as STOCKS; however, the decision to build the
+STOCKS back end on the Node.js platform makes it straightforward for front-end
+developers with JavaScript skills to enhance the back end with additional
+reports, as necessary. The two reports included in this section are designed to
+provide examples of the possibilities the system offers and inspiration for
+future front- and back-end developers alike.
+
+\subsubsection{\texttt{stockReport}}
+
+\begin{lstlisting}
+  http://<hostname>:<port>/api/v1.0/stockReport
+\end{lstlisting}
+
+The \texttt{stockReport} API endpoint presents a common use case for more
+advanced reporting functionality; rather than seeking detailed information on a
+single stock, a user is likely to want to compare data about several stocks.
+This API facilitates these queries by allowing the user to enter a list of
+ticker symbols\footnote{Technically, a JSON array.}, which is transformed into
+query that leverages MongoDB's \texttt{\$in} operator.
+
+\texttt{stockReport} is the only API endpoint in the application that doesn't
+take a positional parameter; instead, it takes input, in the form of a JSON
+array, as the body of an HTTP POST request to the base URI. This array,
+extracted from the request body by the controller, is passed to the service
+layer, where it is inserted into a MongoDB \texttt{\$in} query object, which is
+passed to \texttt{db.dataRead}. The array of results is returned to the
+controller, which sends it in the body of an HTTP 200 response to the client.
+This approach leaves further filtering of displayed fields to the client,
+focusing instead on streamlining data retrieval for multiple stock tickers.
+
+The sample client included with the STOCKS application provides an example of
+this client-side data processing, passing the returned data through \texttt{jq}
+to limit the number of fields displayed on the terminal. However, a client could
+execute commands of arbitrary complexity on the returned data, depending on its
+needs. Figure \ref{fig:stockReport} shows an example of the \texttt{stockReport}
+API endpoint and this client-side processing.
+
+\begin{figure}[tp]
+  \includegraphics[width=\textwidth]{build/img/stockReport}
+  \caption{\texttt{stock-client} running a stock report request to the
+    \texttt{stockReport} API endpoint. Note that data processing is happening on
+    the client side with \texttt{jq}.}
+  \label{fig:stockReport}
+\end{figure}
+
+\subsubsection{\texttt{industryReport}}
+
+\begin{lstlisting}
+  http://<hostname>:3000/api/v1.0/industryReport/<industry>
+\end{lstlisting}
+
+The \texttt{industryReport} endpoint offers an example of injecting user input
+into a pre-constructed aggregation pipeline designed to generate a specific type
+of report. It takes a single positional parameter, an \texttt{Industry} string,
+and returns a list of the top five stock choices in that industry. The actual
+logic to do this is surprisingly simple, making this an excellent example of the
+ways that a team could extend the application to suit their needs.
+
+After receiving the routed request, the controller extracts the industry string
+from the URI parameter and passes it to the service layer. The service layer
+receives this string and inserts it into a three-stage MongoDB aggregation
+pipeline array. This pipeline consists of a \texttt{\$match} stage targeting
+the user-supplied industry string, a \texttt{\$sort} stage that sorts by analyst
+recommendation rating, and a \texttt{\$limit} stage that returns only the top
+five results. This pipeline is passed to \texttt{db.dataAggregate}, which
+performs the database operation and returns the resulting array to the service
+layer, which sends it to the controller. Assuming the operation executes
+successfully, the controller sends the array to the client as a JSON string.
+
+\begin{figure}[tp]
+  \includegraphics[width=\textwidth]{build/img/industryReport.png}
+  \caption{An \texttt{industryReport} run by \texttt{stock-client}}
+  \label{fig:industryReport}
+\end{figure}
+
+This example is an excellent demonstration of the extensibility of the STOCKS
+platform---not only because it shows \textit{how} the system can be extended to
+cover additional use cases by the front-end team or eventual end users, but
+because it shows \textit{why} those users may want to develop such functionality
+themselves. The field of financial services is broad, complex, and technical,
+and this developer has essentially no knowledge of what makes a stock a ``top
+stock''. Relying on a single number, even a ``recommendation,'' is a poor
+substitute for the detailed understanding that professionals in the field
+possess; it is far more practical, in this case and many like it, to provide
+tools that those who have this knowledge can employ to gain the insights they
+seek than it is to try to foresee every need without that background.
+
+Figure \ref{fig:industryReport} illustrates a call to the
+\texttt{industryReport} API using \texttt{stock-client}. As with
+\texttt{stockReport}, additional data processing occurs on the client side,
+using \texttt{jq}.
 
 \end{document}

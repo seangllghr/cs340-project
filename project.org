@@ -130,8 +130,8 @@
 ***** DONE readService
 ***** DONE updateService
 ***** DONE deleteService
-** Final Application [90%]
-*** TODO Features
+** Final Application [100%]
+*** DONE Features
 **** DONE Command Line Utils
 ***** DONE Insert document from stream of key-value pairs
 ****** DONE Read input document from stdin
@@ -190,34 +190,33 @@ detailed specification or the project rubric. Thus, I've decided to omit it.
 ***** DONE stock-report
 ***** DONE industry-report
 ***** KILL company-portfolio
-*** TODO Indices
-**** TODO Ticker Symbol [ascending] :simple:
-**** TODO Industry [ascending] Analyst Recom [descending] :compound:
-*** TODO Screenshots [1/19]
+*** DONE Indices
+**** DONE Ticker Symbol [ascending] :simple:
+**** DONE Industry [ascending] Analyst Recom [descending] :compound:
+*** DONE Screenshots [19/19]
 :properties:
 :cookie_data: recursive
 :end:
-- [-] Collection Management:
+- [X] Collection Management:
   - [X] Use mongoimport to create db:market col:stocks from stocks.json
-  - [ ] Document creation of necessary single or compound indices
-    - [ ] simple index on `Ticker` [ascending]
-    - [ ] compound index on `Industry` [ascending] `Analyst Recom` [descending]
-- [ ] Document Manipulation:
-  - [ ] Document correct execution of Insert functionality
-  - [ ] Document correct execution of Update functionality
-  - [ ] Document correct execution of Delete functionality
-- [ ] Document Retrieval:
-  - [ ] Document correct execution of Find functionality
-  - [ ] Document correct execution of aggregation functionality
-- [ ] REST API
-  - [ ] Document correct execution of POST /createStock
-  - [ ] Document correct execution of GET /readStock
-  - [ ] Document correct execution of PUT /updateStock
-  - [ ] Document correct execution of DELETE /deleteStock
-  - [ ] Document correct execution of POST /stockReport
-  - [ ] Document correct execution of GET /industryReport
-  - [ ] Document correct execution of GET /portfolio
-*** TODO Documentation
+  - [X] Document creation of necessary single or compound indices
+    - [X] simple index on `Ticker` [ascending]
+    - [X] compound index on `Industry` [ascending] `Analyst Recom` [descending]
+- [X] Document Manipulation:
+  - [X] Document correct execution of Insert functionality
+  - [X] Document correct execution of Update functionality
+  - [X] Document correct execution of Delete functionality
+- [X] Document Retrieval:
+  - [X] Document correct execution of Find functionality
+  - [X] Document correct execution of aggregation functionality
+- [X] REST API
+  - [X] Document correct execution of POST /createStock
+  - [X] Document correct execution of GET /readStock
+  - [X] Document correct execution of PUT /updateStock
+  - [X] Document correct execution of DELETE /deleteStock
+  - [X] Document correct execution of POST /stockReport
+  - [X] Document correct execution of GET /industryReport
+*** DONE Documentation
 **** Database Administration
 ***** Initial Back End Setup
 ****** Database Creation and Import
