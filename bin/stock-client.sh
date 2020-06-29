@@ -79,7 +79,7 @@ Price: .Price
     loadjson "$1"
     echo "Running stock report on $inputjson"
     curl -H "Content-Type: application/json" -X POST -d "$inputjson" -s \
-        'http://$hostname:3000/api/v1.0/stockReport' |
+        "http://$hostname:3000/api/v1.0/stockReport" |
         jq -cr "$jqfilter" |
         yq read --prettyPrint --colors -
 }
