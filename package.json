@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/seangllghr/cs340-project#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongodb": "^3.5.8"
   },
   "devDependencies": {
